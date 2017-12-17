@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "task_manager.h"
 
 
