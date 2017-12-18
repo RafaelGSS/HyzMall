@@ -78,6 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(BOOST_ROOT);$(nptunnel_pool_request);$(IncludePath)</IncludePath>
+    <LibraryPath>$(BOOST_ROOT)\lib32-msvc-12.0;$(nptunnel_pool_request);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -115,7 +117,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -150,7 +152,6 @@
     <ClInclude Include="initializer\client_initializer.h" />
     <ClInclude Include="notifier\notification.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="initializer\os\system_manager.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="task\task_manager.h" />
   </ItemGroup>
@@ -166,7 +167,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="initializer\os\system_manager.cpp" />
     <ClCompile Include="task\task_manager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
