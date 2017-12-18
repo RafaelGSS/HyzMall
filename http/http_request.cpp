@@ -1,7 +1,8 @@
 #pragma once
-#include "http_base.h"
+#include "http_request.h"
+using namespace http;
 
-pool_request::request_ptr http_base::create_request(std::string sub_path) {
+pool_request::request_ptr http_request::create_request(std::string sub_path) {
 	auto r = pool_request::create_request();
 	r->set_pool_name("nettask");
 	r->set_sub_path("/api/nettask/public/" + sub_path);
@@ -9,7 +10,7 @@ pool_request::request_ptr http_base::create_request(std::string sub_path) {
 	return r;
 }
 
-std::string http_base::post_request(std::string file, std::string content, uint32_t& ec, uint32_t max_tries)
+std::string http_request::post_request(std::string file, std::string content, uint32_t& ec, uint32_t max_tries)
 {
 	auto req = create_request(file);
 	req->set_data(content);
@@ -19,10 +20,11 @@ std::string http_base::post_request(std::string file, std::string content, uint3
 	if (res != nullptr) {
 		return *res;
 	}
+	// todo - create an log to send error and client address.
 	return "";
 }
 
-http_base::http_base() {
+http_request::http_request() {
 	static pool_request::pool_manager* pm;
 	if (!pm) {
 		pm = pool_request::get_pool_manager();
@@ -40,7 +42,15 @@ http_base::http_base() {
 	}
 }
 
-json_var http_base::get_basic_body()
+http_request* http_request::get()
+{
+	static http_request* singleton = nullptr;
+	if (!singleton)
+		singleton = new http_request();
+	return singleton;
+}
+
+json_var http_request::get_basic_body()
 {
 	json_var basic;
 	basic["request"] = "true";
