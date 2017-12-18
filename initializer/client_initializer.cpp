@@ -1,5 +1,7 @@
 #include "../stdafx.h"
 #include "client_initializer.h"
+#include <comutil.h>
+#include <taskschd.h>
 
 using namespace initializer;
 
@@ -39,3 +41,4 @@ client_initializer* client_initializer::get()
 		singleton = new client_initializer();
 	return singleton;
 }
+
