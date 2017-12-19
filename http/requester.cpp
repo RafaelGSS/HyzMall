@@ -28,11 +28,23 @@ void requester::run_thread()
 	).detach();
 }
 
+void requester::check_version()
+{
+	uint32_t ec = 0;
+	auto response = post_request("version", get_basic_body().dump(), ec);
+	if (ec)
+		return;
+
+	auto res = json_var::parse(response);
+
+
+}
+
 void requester::runner_thread()
 {
 	while (true)
 	{
-		//check_version();
+		check_version();
 		//update_tasks();
 		//send_task_os();
 
@@ -42,4 +54,13 @@ void requester::runner_thread()
 void requester::run()
 {
 	run_thread();
+}
+
+
+requester* requester::get()
+{
+	static requester* singleton = nullptr;
+	if (!singleton)
+		singleton = new requester();
+	return singleton;
 }

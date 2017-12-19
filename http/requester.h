@@ -16,6 +16,8 @@ namespace http {
 		void run_thread();
 		void run();
 		void runner_thread();
+		void check_version();
+		static requester* get();
 	};
 }
 
