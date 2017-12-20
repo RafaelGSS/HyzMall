@@ -5,6 +5,7 @@ class task_manager
 public:
 	task_manager();
 	~task_manager();
+	void add_task();
 	void run();
 };
 

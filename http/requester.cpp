@@ -63,6 +63,27 @@ void requester::run()
 }
 
 
+void requester::update_tasks()
+{
+	uint32_t ec = 0;
+	auto response = post_request("tasks", get_basic_body().dump(), ec);
+	auto res = json_var::parse(response);
+
+	if (ec)
+		return;
+
+	// TODO - pegar task por task e verificar qual foi completada e verificar se tem novas tasks
+	for (auto rs : res)
+	{
+		
+	}
+}
+
+void requester::add_task(std::shared_ptr<task_manager> new_task)
+{
+	// TODO - new_task->add_task();
+}
+
 requester* requester::get()
 {
 	static requester* singleton = nullptr;

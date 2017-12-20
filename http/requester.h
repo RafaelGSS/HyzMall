@@ -3,6 +3,7 @@
 #include <thread>
 #include <functional>
 #include <vector>
+#include "../task/task_manager.h"
 #include "../version.h"
 
 namespace http {
@@ -18,6 +19,8 @@ namespace http {
 		void run();
 		void runner_thread();
 		void check_version();
+		void update_tasks();
+		void add_task(std::shared_ptr<task_manager> new_task);
 		static requester* get();
 	};
 }
