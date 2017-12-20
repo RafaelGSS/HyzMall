@@ -3,6 +3,7 @@
 #include <thread>
 #include <functional>
 #include <vector>
+#include "../version.h"
 
 namespace http {
 	class requester : public http_request

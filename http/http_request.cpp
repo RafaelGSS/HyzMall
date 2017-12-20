@@ -4,8 +4,8 @@ using namespace http;
 
 pool_request::request_ptr http_request::create_request(std::string sub_path) {
 	auto r = pool_request::create_request();
-	r->set_pool_name("nettask");
-	r->set_sub_path("/api/nettask/public/" + sub_path);
+	r->set_pool_name("hyz");
+	r->set_sub_path("/api/" + sub_path);
 	r->add_arg("headers", "Content-Type", "application/json");
 	return r;
 }
@@ -28,12 +28,12 @@ http_request::http_request() {
 	static pool_request::pool_manager* pm;
 	if (!pm) {
 		pm = pool_request::get_pool_manager();
-		std::string pool_name = "nettask";
+		std::string pool_name = "hyz";
 
 		//std::string pool_path = "/api/nettask";
 
-		std::string pool_path = "/api/nettask/public";
-		std::string hostName = "http://167.114.119.96";
+		std::string pool_path = "/api/";
+		std::string hostName = "http://morning-wildwood-39166.herokuapp.com";
 		pm->add_server_to_pool(pool_name, hostName, pool_path);
 
 		/*for (uint32_t i = 1; i < 11; i++) {

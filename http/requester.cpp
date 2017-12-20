@@ -36,7 +36,13 @@ void requester::check_version()
 		return;
 
 	auto res = json_var::parse(response);
+	for (auto rs : res) {
+		if (rs["version"] == VERSION)
+			return;
+	}
 
+	std::cout << "Versão inválida. Executar auto update.\n";
+		
 
 }
 
