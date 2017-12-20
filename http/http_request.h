@@ -1,5 +1,4 @@
 #pragma once
-#include "../stdafx.h"
 #include "http_code.h"
 #include "json\json.hpp"
 #include <bin\includes\pool_request.h>

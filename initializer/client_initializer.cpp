@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "client_initializer.h"
 #include <comutil.h>
 #include <taskschd.h>

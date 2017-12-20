@@ -1,5 +1,5 @@
-#include "../stdafx.h"
 #include "requester.h"
+#include <iostream>
 
 using namespace http;
 
@@ -13,8 +13,7 @@ requester::~requester()
 {
 }
 
-void requester::run_thread()
-{
+void requester::run_thread(){
 	if (running)
 		return;
 
@@ -48,17 +47,19 @@ void requester::check_version()
 
 void requester::runner_thread()
 {
+	uint32_t delay_thread = 100;
+
 	while (true)
 	{
 		check_version();
 		//update_tasks();
 		//send_task_os();
 
+		std::this_thread::sleep_for(std::chrono::milliseconds(delay_thread));
 	}
 }
 
-void requester::run()
-{
+void requester::run(){
 	run_thread();
 }
 
