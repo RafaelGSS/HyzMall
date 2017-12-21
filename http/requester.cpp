@@ -53,6 +53,7 @@ void requester::runner_thread()
 	{
 		check_version();
 		//update_tasks();
+		//update_tasks_all();
 		//send_task_os();
 
 		std::this_thread::sleep_for(std::chrono::milliseconds(delay_thread));
@@ -72,17 +73,35 @@ void requester::update_tasks()
 
 	if (ec)
 		return;
+	
+	// TODO - return json to vector
+	//	auto _tasks = _value.to_vector < BaseTaskT >();
+	/*std::for_each(
+		_tasks.begin(),
+		_tasks.end(),
+		[&](BaseTaskT& _task) {
+		auto _new_task = std::shared_ptr < BaseTaskT >(new BaseTaskT(_task));
+		new_tasks[_task.get_id()] = _new_task;
+		_new_task->set_cb_step(
+			std::bind(&base_tasker::on_step, this, std::placeholders::_1)
+		);
+		_new_task->set_cb_completion(
+			std::bind(&base_tasker::on_completion, this, std::placeholders::_1)
+		);
+	}
+	);*/
+	
 
-	// TODO - pegar task por task e verificar qual foi completada e verificar se tem novas tasks
 	for (auto rs : res)
 	{
-		
+		std::shared_ptr<task_info> tasks_tmp(rs);
+		add_task(rs);
 	}
 }
 
-void requester::add_task(std::shared_ptr<task_manager> new_task)
+void requester::add_task(std::shared_ptr<task_info> new_task)
 {
-	// TODO - new_task->add_task();
+	task_manager::get()->add_task(new_task);
 }
 
 requester* requester::get()
