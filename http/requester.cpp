@@ -57,7 +57,11 @@ void requester::runner_thread()
 		//update_tasks_all();
 		//send_task_os();
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(delay_thread));
+		std::this_thread::sleep_for(
+			std::chrono::milliseconds(
+				delay_thread
+			)
+		);
 	}
 }
 
