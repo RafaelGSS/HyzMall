@@ -103,6 +103,13 @@ void task_manager::start_task(task_info task)
 {
 	if(task.type == "ssh")
 	{
-		// ssh new ssh 
+		/*task_ssh new_task;
+		std::thread(
+			std::bind(
+				&task_ssh::run, task_ssh
+			)
+		).detach();
+		return;
+		*/
 	}
 }
