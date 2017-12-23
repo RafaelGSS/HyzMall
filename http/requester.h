@@ -1,6 +1,7 @@
 #pragma once
 #include "http_request.h"
 #include <thread>
+#include <chrono>
 #include <functional>
 #include <vector>
 #include <mutex>
@@ -13,6 +14,7 @@ namespace http {
 	private:
 		//std::vector<tasks> task_list;
 		bool running;
+		std::string client_path;
 	public:
 		requester();
 		~requester();

@@ -3,10 +3,11 @@
 #include <memory>
 #include <algorithm>
 #include <functional>
+#include <mutex>
 #include <thread>
 #include "../http/json/json.hpp"
-#include <boost/chrono.hpp>
-#include <boost/thread/thread.hpp> 
+//#include <boost/chrono.hpp>
+#include <chrono>
 
 using json_var = nlohmann::json;  
 
@@ -24,6 +25,7 @@ public:
 
 class task_manager
 {
+	std::mutex mtx;
 	std::vector<std::shared_ptr<task_info>> tasks;
 	bool running;
 public:
@@ -34,8 +36,8 @@ public:
 	void run();
 	void start_thread();
 	void runner_thread();
-	void start_task(task_info);
-	task_info get_next_task();
+	void start_task(std::shared_ptr<task_info>);
+	std::shared_ptr<task_info> get_next_task();
 	static task_manager* get();
 };
 

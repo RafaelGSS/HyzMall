@@ -15,8 +15,9 @@ task_manager::~task_manager()
 
 void task_manager::add_task(std::shared_ptr<task_info> _new_task)
 {
+	std::lock_guard<std::mutex> lck(mtx);
+
 	if (check_new_task(_new_task)) {
-		// TODO - MUTEX AQUI
 		tasks.push_back(_new_task);
 	}
 
@@ -45,19 +46,19 @@ bool task_manager::check_new_task(std::shared_ptr<task_info> _new_task)
 		);
 
 	if (_found == tasks.end())
-		return false;
+		return true;
 
-	return true;
+	return false;
 }
 
-task_info task_manager::get_next_task()
+std::shared_ptr<task_info> task_manager::get_next_task()
 {
-	// TODO - mutex aqui
-
+	std::lock_guard<std::mutex> lck(mtx);
+	
 	auto current_task = tasks.begin();
 	tasks.erase(tasks.begin());
 
-	return current_task;
+	return *current_task;
 }
 
 void task_manager::run()
@@ -74,7 +75,7 @@ void task_manager::start_thread()
 
 	std::thread(
 		std::bind(
-			&runner_thread,
+			&task_manager::runner_thread,
 			this
 		)
 	).detach();
@@ -86,12 +87,13 @@ void task_manager::runner_thread()
 	{
 		if (tasks.size())
 		{
+			// TODO - problema ao pegar task, está retornando vazio!
 			auto task = get_next_task();
 			start_task(task);
 		}
 
-		boost::this_thread::sleep_for(
-			boost::chrono::milliseconds(
+		std::this_thread::sleep_for(
+			std::chrono::milliseconds(
 				5000
 			)
 		);
@@ -99,9 +101,9 @@ void task_manager::runner_thread()
 	}
 }
 
-void task_manager::start_task(task_info task)
+void task_manager::start_task(std::shared_ptr<task_info> task)
 {
-	if(task.type == "ssh")
+	if(task->type == "ssh")
 	{
 		/*task_ssh new_task;
 		std::thread(

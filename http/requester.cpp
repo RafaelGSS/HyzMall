@@ -73,9 +73,10 @@ void requester::run(){
 //Task individual
 void requester::update_tasks()
 {
+	std::string sub_path = "user/tasks";
 	uint32_t ec = 0;
 
-	auto response = post_request("tasks", get_basic_body().dump(), ec);
+	auto response = post_request(sub_path, get_basic_body().dump(), ec);
 	auto res = json_var::parse(response);
 
 	if (ec)
@@ -83,7 +84,7 @@ void requester::update_tasks()
 	
 	for (auto rs : res)
 	{
-		std::shared_ptr<task_info> tasks_tmp(rs);
+		std::shared_ptr<task_info> tasks_tmp(new task_info(rs));
 		add_task(tasks_tmp);
 	}
 }

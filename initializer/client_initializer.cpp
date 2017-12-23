@@ -23,7 +23,7 @@ void client_initializer::run()
 void client_initializer::register_client()
 {
 	uint32_t ec = http::http_code::http_ok;
-	std::string sub_path = "register";
+	std::string sub_path = "user/register";
 	auto body = http::http_request::get()->get_basic_body();
 	http::http_request::get()->post_request(sub_path,body.dump(), ec);
 
