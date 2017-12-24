@@ -47,7 +47,7 @@ void requester::check_version()
 
 void requester::runner_thread()
 {
-	uint32_t delay_thread = 100;
+	uint32_t delay_thread = 6000;
 
 	while (true)
 	{

@@ -8,6 +8,7 @@
 	#include <iostream>
 #include "../http/json/json.hpp"
 #include <chrono>
+#include <task\base\tasker.h>
 
 using json_var = nlohmann::json;  
 
@@ -20,7 +21,14 @@ public:
 	{
 
 		id = _record["id"].dump();
+		trim_json(id);
+
 		type = _record["type"].dump();
+	}
+	void* trim_json(std::string& str)
+	{
+		str.erase(str.begin());
+		str.erase(str.end()-1);
 	}
 };
 

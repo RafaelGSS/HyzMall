@@ -146,23 +146,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="client\base\base_task.h" />
+    <ClInclude Include="task\base\base_task.h" />
     <ClInclude Include="http\http_code.h" />
     <ClInclude Include="http\http_request.h" />
     <ClInclude Include="http\json\json.hpp" />
     <ClInclude Include="initializer\client_initializer.h" />
     <ClInclude Include="notifier\notification.h" />
     <ClInclude Include="http\requester.h" />
+    <ClInclude Include="task\client_tasks\ssh_client.h" />
+    <ClInclude Include="task\base\tasker.h" />
     <ClInclude Include="task\task_manager.h" />
     <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="client\base\base_task.cpp" />
+    <ClCompile Include="task\base\base_task.cpp" />
     <ClCompile Include="http\http_request.cpp" />
     <ClCompile Include="initializer\client_initializer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="notifier\notification.cpp" />
     <ClCompile Include="http\requester.cpp" />
+    <ClCompile Include="task\client_tasks\ssh_client.cpp" />
     <ClCompile Include="task\task_manager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
