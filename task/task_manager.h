@@ -5,8 +5,8 @@
 #include <functional>
 #include <mutex>
 #include <thread>
+	#include <iostream>
 #include "../http/json/json.hpp"
-//#include <boost/chrono.hpp>
 #include <chrono>
 
 using json_var = nlohmann::json;  
@@ -18,6 +18,7 @@ public:
 
 	task_info(json_var _record)
 	{
+
 		id = _record["id"].dump();
 		type = _record["type"].dump();
 	}
@@ -27,6 +28,7 @@ class task_manager
 {
 	std::mutex mtx;
 	std::vector<std::shared_ptr<task_info>> tasks;
+	std::vector<std::shared_ptr<task_info>> ret_tasks;
 	bool running;
 public:
 	task_manager();

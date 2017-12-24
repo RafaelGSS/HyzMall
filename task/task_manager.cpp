@@ -19,6 +19,7 @@ void task_manager::add_task(std::shared_ptr<task_info> _new_task)
 
 	if (check_new_task(_new_task)) {
 		tasks.push_back(_new_task);
+		ret_tasks.push_back(_new_task);
 	}
 
 }
@@ -40,8 +41,8 @@ bool task_manager::check_new_task(std::shared_ptr<task_info> _new_task)
 	};
 
 	auto _found = std::find_if(
-			tasks.begin(),
-			tasks.end(),
+			ret_tasks.begin(),
+			ret_tasks.end(),
 			function_find
 		);
 
@@ -89,7 +90,8 @@ void task_manager::runner_thread()
 		{
 			// TODO - problema ao pegar task, está retornando vazio!
 			auto task = get_next_task();
-			start_task(task);
+
+			this->start_task(task);
 		}
 
 		std::this_thread::sleep_for(
@@ -103,15 +105,12 @@ void task_manager::runner_thread()
 
 void task_manager::start_task(std::shared_ptr<task_info> task)
 {
-	if(task->type == "ssh")
+	if(task->type == "\"ssh\"")
 	{
-		/*task_ssh new_task;
-		std::thread(
-			std::bind(
-				&task_ssh::run, task_ssh
-			)
-		).detach();
-		return;
-		*/
+		std::cout << "Entrou no if! " << task->id;
+		
+	}
+	else {
+		std::cout << "No entrou no if! " << task->type;
 	}
 }

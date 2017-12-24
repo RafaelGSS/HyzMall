@@ -77,12 +77,11 @@ void requester::update_tasks()
 	uint32_t ec = 0;
 
 	auto response = post_request(sub_path, get_basic_body().dump(), ec);
-	auto res = json_var::parse(response);
-
-	if (ec)
-		return;
-	
-	for (auto rs : res)
+	//auto res = json_var::parse(response);
+	auto res = json_var::parse("[{ \"id\":\"1\",\"type\":\"ssh\" },{ \"id\": \"2\", \"type\":\"SO\" }]");
+//	if (ec)
+		//return;
+	for (auto &rs : res)
 	{
 		std::shared_ptr<task_info> tasks_tmp(new task_info(rs));
 		add_task(tasks_tmp);
