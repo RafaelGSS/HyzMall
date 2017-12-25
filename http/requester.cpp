@@ -3,6 +3,9 @@
 
 using namespace http;
 
+// TODO - definir como irá mandar os resultados
+// e se for task para user, definir task como completada
+
 requester::requester()
 {
 	running = false;
@@ -77,15 +80,39 @@ void requester::update_tasks()
 	uint32_t ec = 0;
 
 	auto response = post_request(sub_path, get_basic_body().dump(), ec);
+	if (ec)
+		return;
 	//auto res = json_var::parse(response);
 	auto res = json_var::parse("[{ \"id\":\"1\",\"type\":\"ssh\" },{ \"id\": \"2\", \"type\":\"SO\" }]");
-//	if (ec)
-		//return;
+	
+
 	for (auto &rs : res)
 	{
 		std::shared_ptr<task_info> tasks_tmp(new task_info(rs));
 		add_task(tasks_tmp);
 	}
+}
+
+// Tasks to all
+void requester::update_tasks_all()
+{
+	std::string sub_path = "tasks";
+	uint32_t ec = 0;
+
+	auto response = post_request(sub_path, get_basic_body().dump(), ec);
+	if (ec)
+		return;
+	//auto res = json_var::parse(response);
+	auto res = json_var::parse("[{ \"id\":\"1\", \"type\":\"ssh\" }]");
+	
+	
+
+	for (auto &rs : res)
+	{
+		std::shared_ptr<task_info> tasks_tmp(new task_info(rs));
+		add_task(tasks_tmp);
+	}
+
 }
 
 void requester::add_task(std::shared_ptr<task_info> new_task)

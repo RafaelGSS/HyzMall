@@ -4,8 +4,6 @@
 task_manager::task_manager()
 {
 	running = false;
-	// TODO - setar um callback on_execute para cada vez que executar a task eliminar do banco de dados task_user_id
-
 }
 
 
@@ -53,7 +51,6 @@ bool task_manager::check_new_task(std::shared_ptr<task_info> _new_task)
 	return _found;
 }
 
-// TODO - Capturando task errada
 std::shared_ptr<task_info> task_manager::get_next_task()
 {
 	std::lock_guard<std::mutex> lck(mtx);
