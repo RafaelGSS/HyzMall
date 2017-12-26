@@ -1,6 +1,4 @@
 #include "client_initializer.h"
-#include <comutil.h>
-#include <taskschd.h>
 
 using namespace initializer;
 
@@ -15,6 +13,7 @@ client_initializer::~client_initializer()
 
 void client_initializer::run()
 {
+	std::cout << "register client\n";
 	register_client();
 	// todo - create task windows
 }

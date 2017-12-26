@@ -12,7 +12,9 @@ base_task::~base_task()
 {
 }
 
-void base_task::set_callback(std::function<void()> callback)
+
+void base_task::send_results()
 {
-	callback_on_execute = callback;
+	std::cout << "added notification " << results.dump() << "\n";
+	notification::get()->add_notification("user/results", results.dump());
 }

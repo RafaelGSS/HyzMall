@@ -8,5 +8,6 @@ public:
 	~ssh_client();
 	void execute();
 	void on_execute();
+	void run(std::string, bool);
 };
 

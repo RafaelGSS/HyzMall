@@ -16,19 +16,24 @@ struct task_info {
 public:
 	std::string id;
 	std::string type;
+	bool response_up;
 
-	task_info(json_var _record)
+	task_info(json_var _record, bool _response_up = false)
 	{
-
 		id = _record["id"].dump();
 		trim_json(id);
-
 		type = _record["type"].dump();
+		trim_json(type);
+
+		response_up = _response_up;
 	}
 	void* trim_json(std::string& str)
 	{
-		str.erase(str.begin());
-		str.erase(str.end()-1);
+		str.erase(
+			remove(str.begin(), str.end(), '\"'),
+			str.end()
+		);
+
 	}
 };
 

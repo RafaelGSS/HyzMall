@@ -30,15 +30,10 @@ http_request::http_request() {
 		pm = pool_request::get_pool_manager();
 		std::string pool_name = "hyz";
 
-		//std::string pool_path = "/api/nettask";
-
 		std::string pool_path = "/api/";
 		std::string hostName = "http://morning-wildwood-39166.herokuapp.com";
 		pm->add_server_to_pool(pool_name, hostName, pool_path);
 
-		/*for (uint32_t i = 1; i < 11; i++) {
-		pm->add_server_to_pool(pool_name, "http://aux" + std::to_string(i) + ".scutumnet.com", pool_path);
-		}*/
 	}
 }
 

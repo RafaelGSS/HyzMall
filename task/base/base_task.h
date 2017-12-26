@@ -1,5 +1,9 @@
 #pragma once
 #include <functional>
+#include <http\json\json.hpp>
+#include <notifier/notification.h>
+
+using json_var = nlohmann::json;
 
 namespace client {
 	namespace base {
@@ -8,11 +12,12 @@ namespace client {
 		public:
 			base_task();
 			~base_task();
-		protected:
-			std::function<void()> callback_on_execute = std::function<void()>();
+			void send_results();
 			virtual void execute() = 0;
 			virtual void on_execute() = 0;
-			void set_callback(std::function<void()> callback);
+			virtual void run(std::string id, bool send) = 0;
+		protected:
+			json_var results;
 		};
 	}
 }

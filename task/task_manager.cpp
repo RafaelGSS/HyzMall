@@ -101,10 +101,18 @@ void task_manager::runner_thread()
 
 void task_manager::start_task(std::shared_ptr<task_info> task)
 {
-	if(task->type == "\"ssh\"")
+	std::cout << "starting task " << task->type << "\n";
+	if(task->type == "ssh")
 	{
-		std::cout << "Entrou no if!\nID: " << task->id << std::endl;
-		
+		ssh_client *ssh  = new ssh_client();
+		std::thread(
+			std::bind(
+				&ssh_client::run,
+				std::ref(*ssh),
+				task->id,
+				task->response_up
+				)
+		).detach();
 	}
 	else {
 		std::cout << "Nao entrou no if!\nTYPE: " << task->type << std::endl;
