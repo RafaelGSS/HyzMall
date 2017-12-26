@@ -4,6 +4,7 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <http\http_request.h>
 
 struct notif_info {
 public:
@@ -24,6 +25,7 @@ public:
 	void add_notification(std::string path, std::string content);
 	void runner_thread();
 	bool check_notifications();
+	void send_request(std::string path, std::string content);
 	notif_info get_next_notification();
 	static notification* get();
 };

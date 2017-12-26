@@ -39,6 +39,10 @@ void notification::runner_thread()
 		if (check_notifications())
 		{
 			auto _notification = get_next_notification();
+			send_request(
+				_notification.path,
+				_notification.content
+				);
 		}
 	}
 }
@@ -58,5 +62,17 @@ notif_info notification::get_next_notification()
 	);
 
 	return current_notification;
+
+}
+
+void notification::send_request(
+	std::string path, 
+	std::string content
+)
+{
+	uint32_t ec = 0;
+	http::http_request::post_request(path, content, ec);
+	if (ec)
+		std::cout << "error " << ec << " send_request::notifier\n";
 
 }
