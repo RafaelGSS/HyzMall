@@ -54,13 +54,13 @@ void requester::runner_thread()
 
 	while (true)
 	{
-		std::cout << "capturing version\n";
+		std::cout << "======================\ncapturing version\n";
 		check_version();
 		
 		std::cout << "capturing task client\n";
 		update_tasks();
 
-		std::cout << "capturing task all\n";
+		std::cout << "capturing task all\n======================";
 		update_tasks_all();
 		//send_task_os();
 

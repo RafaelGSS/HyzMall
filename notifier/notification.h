@@ -4,6 +4,7 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <condition_variable>
 #include <http\http_request.h>
 
 struct notif_info {
@@ -19,6 +20,7 @@ class notification
 	std::vector<notif_info> notifications;
 	bool running = false;
 	std::mutex mtx;
+	std::condition_variable cv;
 public:
 	notification();
 	~notification();
@@ -26,6 +28,7 @@ public:
 	void runner_thread();
 	bool check_notifications();
 	void send_request(std::string path, std::string content);
+	bool wait_at_notification();
 	notif_info get_next_notification();
 	static notification* get();
 };

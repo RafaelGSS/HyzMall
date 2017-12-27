@@ -92,7 +92,7 @@ void task_manager::runner_thread()
 
 		std::this_thread::sleep_for(
 			std::chrono::milliseconds(
-				6000
+				60000
 			)
 		);
 
