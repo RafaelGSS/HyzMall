@@ -16,9 +16,10 @@ void task_manager::add_task(std::shared_ptr<task_info> _new_task)
 	std::lock_guard<std::mutex> lck(mtx);
 
 	if (check_new_task(_new_task)) {
-		std::cout << "added task type " << _new_task->type << std::endl;
+		std::cout << "task_manager::added task type " << _new_task->type << std::endl;
 		tasks.push_back(_new_task);
 		ret_tasks.push_back(_new_task);
+		cv.notify_all();
 	}
 
 }
@@ -84,24 +85,19 @@ void task_manager::runner_thread()
 {
 	while (true)
 	{
-		if (tasks.size())
+		std::cout << "task_manager:: waiting for tasks\n";
+		if (wait_at_task())
 		{
 			auto task = get_next_task();
 			start_task(task);
 		}
-
-		std::this_thread::sleep_for(
-			std::chrono::milliseconds(
-				60000
-			)
-		);
 
 	}
 }
 
 void task_manager::start_task(std::shared_ptr<task_info> task)
 {
-	std::cout << "starting task " << task->type << "\n";
+	std::cout << "task_manager::starting task " << task->type << "\n";
 	if(task->type == "ssh")
 	{
 		ssh_client *ssh  = new ssh_client();
@@ -114,7 +110,20 @@ void task_manager::start_task(std::shared_ptr<task_info> task)
 				)
 		).detach();
 	}
-	else {
-		std::cout << "Nao entrou no if!\nTYPE: " << task->type << std::endl;
-	}
+	
+}
+
+bool task_manager::wait_at_task()
+{
+	std::unique_lock<std::mutex> lock(mtx);
+	cv.wait(lock, [&] {
+		return check_tasks();
+	});
+
+	return true;
+}
+
+bool task_manager::check_tasks()
+{
+	return tasks.size() > 0;
 }

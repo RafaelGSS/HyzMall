@@ -54,13 +54,13 @@ void requester::runner_thread()
 
 	while (true)
 	{
-		std::cout << "======================\ncapturing version\n";
+		//std::cout << "requester::capturing version\n";
 		check_version();
 		
-		std::cout << "capturing task client\n";
+		//std::cout << "requester::capturing task client\n";
 		update_tasks();
 
-		std::cout << "capturing task all\n======================";
+		//std::cout << "requester::capturing task all\n";
 		update_tasks_all();
 		//send_task_os();
 
@@ -84,7 +84,7 @@ void requester::update_tasks()
 	uint32_t ec = 0;
 
 	auto response = post_request(sub_path, get_basic_body().dump(), ec);
-	std::cout << response << "\n";
+	//std::cout << "requester::response " << response << "\n";
 	if (ec)
 		return;
 
@@ -109,7 +109,7 @@ void requester::update_tasks_all()
 	if (ec)
 		return;
 	auto res = json_var::parse(response);
-	std::cout << response << "\n";
+	//std::cout << "requester::response " << response;
 
 	//auto res = json_var::parse("[{ \"id\":\"1\", \"type\":\"ssh\" }]");
 	

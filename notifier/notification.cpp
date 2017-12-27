@@ -26,7 +26,7 @@ void notification::add_notification(std::string path, std::string content)
 	notif_info new_notification(path, content);
 	notifications.push_back(new_notification);
 	cv.notify_all();
-	std::cout << "new notification added path: " << path << " content: " << content << "\n";
+	//std::cout << "notification:: new notification added path: " << path << " content: " << content << "\n";
 }
 
 notification* notification::get()
@@ -41,15 +41,14 @@ void notification::runner_thread()
 {
 	while (true)
 	{
+		//std::cout << "notification:: notifier runner thread started loop\n";
 		if (wait_at_notification())
 		{
-			std::cout << "notifier runner thread started loop\n";
 			auto _notification = get_next_notification();
 			send_request(
 				_notification.path,
 				_notification.content
 				);
-			std::cout << "notifier runner thread end loop\n";
 		}
 
 	}
@@ -91,6 +90,6 @@ void notification::send_request(
 	uint32_t ec = 0;
 	http::http_request::get()->post_request(path, content, ec);
 	if (ec)
-		std::cout << "error " << ec << " send_request::notifier\n";
+		std::cout << "send_request::notifier error " << ec << "\n";
 
 }

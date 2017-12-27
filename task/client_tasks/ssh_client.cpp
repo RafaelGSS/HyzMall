@@ -12,13 +12,13 @@ ssh_client::~ssh_client()
 
 void ssh_client::execute()
 {
-	std::cout << "ssh_client::execute running\n";
+	//std::cout << "ssh_client::execute running\n";
 }
 
 
 void ssh_client::on_execute()
 {
-	std::cout << "ssh_client::on_execute running\n";
+	//std::cout << "ssh_client::on_execute running\n";
 	results["completed"] = true;
 }
 

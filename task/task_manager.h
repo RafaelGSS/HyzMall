@@ -9,6 +9,7 @@
 #include "../http/json/json.hpp"
 #include <chrono>
 #include <task\base\tasker.h>
+#include <condition_variable>
 
 using json_var = nlohmann::json;  
 
@@ -42,11 +43,14 @@ class task_manager
 	std::mutex mtx;
 	std::vector<std::shared_ptr<task_info>> tasks;
 	std::vector<std::shared_ptr<task_info>> ret_tasks;
+	std::condition_variable cv;
 	bool running;
 public:
 	task_manager();
 	~task_manager();
 	bool check_new_task(std::shared_ptr<task_info>);
+	bool wait_at_task();
+	bool check_tasks();
 	void add_task(std::shared_ptr<task_info>);
 	void run();
 	void start_thread();
