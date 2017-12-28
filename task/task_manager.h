@@ -17,16 +17,20 @@ struct task_info {
 public:
 	std::string id;
 	std::string type;
+	std::string args_type;
 	bool response_up;
 
 	task_info(json_var _record, bool _response_up = false)
 	{
 		id = _record["id"].dump();
-		trim_json(id);
 		type = _record["type"].dump();
-		trim_json(type);
-
 		response_up = _response_up;
+		args_type = _record["args_type"].dump();
+		
+		trim_json(args_type);
+		trim_json(type);
+		trim_json(id);
+
 	}
 	void* trim_json(std::string& str)
 	{

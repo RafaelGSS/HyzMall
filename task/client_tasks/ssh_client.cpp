@@ -12,23 +12,34 @@ ssh_client::~ssh_client()
 
 void ssh_client::execute()
 {
-	//std::cout << "ssh_client::execute running\n";
+	auto funct = fetch_function(results["args_type"]);
+	funct();
 }
 
 
 void ssh_client::on_execute()
 {
-	//std::cout << "ssh_client::on_execute running\n";
 	results["completed"] = true;
 }
 
 
-void ssh_client::run(std::string id, bool send_result)
+void ssh_client::run(std::string id, bool send_result, std::string args)
 {
-	results["id"] = id;
+	initializeResults(id, args);
 	execute();
 	on_execute();
 	if(send_result)
 		send_results();
 
+}
+
+_function ssh_client::fetch_function(std::string _function)
+{
+	if (_function == "open")
+		return std::bind(&ssh_client::open_ssh, this);
+}
+
+bool ssh_client::open_ssh()
+{
+	return true;
 }

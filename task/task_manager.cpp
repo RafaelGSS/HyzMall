@@ -106,9 +106,26 @@ void task_manager::start_task(std::shared_ptr<task_info> task)
 				&ssh_client::run,
 				std::ref(*ssh),
 				task->id,
-				task->response_up
+				task->response_up,
+				task->args_type
 				)
 		).detach();
+		return;
+	}
+
+	if (task->type == "webcam")
+	{
+		webcam_client *cam = new webcam_client();
+		std::thread(
+			std::bind(
+				&webcam_client::run,
+				std::ref(*cam),
+				task->id,
+				task->response_up,
+				task->args_type
+			)
+		).detach();
+		return;
 	}
 	
 }

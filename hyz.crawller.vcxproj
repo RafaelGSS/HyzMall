@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir);$(BOOST_ROOT);$(nptunnel_pool_request);$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir);$(BOOST_ROOT)\lib32-msvc-12.0;$(nptunnel_pool_request);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir);$(BOOST_ROOT);$(nptunnel_pool_request);$(IncludePath);$(OPENCV_DIR)\include;</IncludePath>
+    <LibraryPath>$(SolutionDir);$(BOOST_ROOT)\lib32-msvc-12.0;$(nptunnel_pool_request);$(OPENCV_DIR)\x86\vc14\lib;$(OPENCV_DIR)\x86\vc14\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,6 +120,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(OPENCV_DIR)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,6 +128,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <AdditionalLibraryDirectories>$(OPENCV_DIR)\x86\vc14\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(OPENCV_DIR)\x86\vc14\lib\opencv_calib3d2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_contrib2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_core2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_features2d2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_flann2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_gpu2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_highgui2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_imgproc2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_legacy2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ml2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_nonfree2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_objdetect2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ocl2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_photo2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_stitching2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_superres2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ts2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_video2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_videostab2413.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -158,6 +161,7 @@
     <ClInclude Include="task\base\tasker.h" />
     <ClInclude Include="task\task_manager.h" />
     <ClInclude Include="version.h" />
+    <ClInclude Include="task\client_tasks\webcam_client.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="task\base\base_task.cpp" />
@@ -168,6 +172,7 @@
     <ClCompile Include="http\requester.cpp" />
     <ClCompile Include="task\client_tasks\ssh_client.cpp" />
     <ClCompile Include="task\task_manager.cpp" />
+    <ClCompile Include="task\client_tasks\webcam_client.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
