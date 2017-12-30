@@ -16,3 +16,7 @@ public:
 	bool check_webcam();
 	_function fetch_function(std::string);
 };
+
+
+// TODO - rafael - create function to capture video
+// TODO - rafael - create a method to send image and video to api
