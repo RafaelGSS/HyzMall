@@ -64,3 +64,4 @@ public:
 	static task_manager* get();
 };
 
+// TODO - rafael - database - create an table for each task

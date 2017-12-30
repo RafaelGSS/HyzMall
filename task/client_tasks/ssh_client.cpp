@@ -3,6 +3,7 @@
 
 ssh_client::ssh_client()
 {
+	path = "user/results_ssh";
 }
 
 

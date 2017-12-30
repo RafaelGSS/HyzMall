@@ -3,6 +3,7 @@
 
 webcam_client::webcam_client()
 {
+	path = "user/results_webcam";
 }
 
 
@@ -49,11 +50,13 @@ bool webcam_client::one_capture()
 
 	cv::imwrite(file_name, frame);
 	results["image_name"] = file_name;
-
 	return true;
 }
 
-
+bool webcam_client::video_capture()
+{
+	// TODO - rafael - create function to capture video
+}
 
 bool webcam_client::check_webcam()
 {

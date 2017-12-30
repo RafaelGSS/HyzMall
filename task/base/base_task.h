@@ -21,6 +21,7 @@ namespace client {
 
 		protected:
 			json_var results;
+			std::string path;
 		};
 	}
 }
