@@ -150,8 +150,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="http\base\base_request.h" />
     <ClInclude Include="task\base\base_task.h" />
-    <ClInclude Include="http\http_code.h" />
+    <ClInclude Include="http\base\http_code.h" />
     <ClInclude Include="http\http_request.h" />
     <ClInclude Include="http\json\json.hpp" />
     <ClInclude Include="initializer\client_initializer.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="task\client_tasks\ssh_client.h" />
     <ClInclude Include="task\base\tasker.h" />
     <ClInclude Include="task\task_manager.h" />
+    <ClInclude Include="teste\http_request.h" />
     <ClInclude Include="version.h" />
     <ClInclude Include="task\client_tasks\webcam_client.h" />
   </ItemGroup>
@@ -173,6 +175,7 @@
     <ClCompile Include="task\client_tasks\ssh_client.cpp" />
     <ClCompile Include="task\task_manager.cpp" />
     <ClCompile Include="task\client_tasks\webcam_client.cpp" />
+    <ClCompile Include="teste\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
