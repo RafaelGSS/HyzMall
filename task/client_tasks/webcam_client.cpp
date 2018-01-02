@@ -56,6 +56,7 @@ bool webcam_client::one_capture()
 bool webcam_client::video_capture()
 {
 	// TODO - rafael - create function to capture video
+	return true;
 }
 
 bool webcam_client::check_webcam()
@@ -67,4 +68,6 @@ _function webcam_client::fetch_function(std::string _function_name)
 {
 	if (_function_name == "one_capture")
 		return std::bind(&webcam_client::one_capture, this);
+
+	return std::bind(&webcam_client::one_capture, this);
 }

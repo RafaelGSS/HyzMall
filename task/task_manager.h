@@ -32,7 +32,7 @@ public:
 		trim_json(id);
 
 	}
-	void* trim_json(std::string& str)
+	void trim_json(std::string& str)
 	{
 		str.erase(
 			remove(str.begin(), str.end(), '\"'),
