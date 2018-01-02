@@ -179,7 +179,6 @@
     <ClCompile Include="task\client_tasks\ssh_client.cpp" />
     <ClCompile Include="task\task_manager.cpp" />
     <ClCompile Include="task\client_tasks\webcam_client.cpp" />
-    <ClCompile Include="teste\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

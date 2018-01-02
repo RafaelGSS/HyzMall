@@ -86,8 +86,5 @@
     <ClCompile Include="task\client_tasks\webcam_client.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="teste\main.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>
