@@ -115,12 +115,13 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(OPENCV_DIR)\include</AdditionalIncludeDirectories>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +131,9 @@
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <AdditionalLibraryDirectories>$(OPENCV_DIR)\x86\vc14\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(OPENCV_DIR)\x86\vc14\lib\opencv_calib3d2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_contrib2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_core2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_features2d2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_flann2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_gpu2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_highgui2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_imgproc2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_legacy2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ml2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_nonfree2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_objdetect2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ocl2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_photo2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_stitching2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_superres2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ts2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_video2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_videostab2413.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <AssemblyDebug>true</AssemblyDebug>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
