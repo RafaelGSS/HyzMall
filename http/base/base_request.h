@@ -335,76 +335,76 @@ namespace http {
 			return http_code;
 		}
 
-		long curl_post_file(
-			std::string url,
-			std::string file_name = std::string(),
-			std::string content = std::string(),
-			std::map<std::string, std::string> args = std::map<std::string, std::string>(),
-			uint32_t timeout = (uint32_t)-1
-		) {
-			curl_lib *curl;
-			CURLcode res = CURLE_OK;
+		//long curl_post_file(
+		//	std::string url,
+		//	std::string file_name = std::string(),
+		//	std::string content = std::string(),
+		//	std::map<std::string, std::string> args = std::map<std::string, std::string>(),
+		//	uint32_t timeout = (uint32_t)-1
+		//) {
+		//	curl_lib *curl;
+		//	CURLcode res = CURLE_OK;
 
-			curl = curl_easy_init();
+		//	curl = curl_easy_init();
 
-			if (!curl)
-				return 0;
+		//	if (!curl)
+		//		return 0;
 
-			curl_mime *form = curl_mime_init(curl);
-			curl_mimepart *field = curl_mime_addpart(form);
+		//	curl_mime *form = curl_mime_init(curl);
+		//	curl_mimepart *field = curl_mime_addpart(form);
 
-			curl_mime_name(field, "sendfile");
-			curl_mime_filedata(field, file_name);
+		//	curl_mime_name(field, "sendfile");
+		//	curl_mime_filedata(field, file_name);
 
-			field = curl_mime_addpart(form);
-			curl_mime_name(field, "filename");
-			curl_mime_data(field, file_name, CURL_ZERO_TERMINATED);
+		//	field = curl_mime_addpart(form);
+		//	curl_mime_name(field, "filename");
+		//	curl_mime_data(field, file_name, CURL_ZERO_TERMINATED);
 
-			field = curl_mime_addpart(form);
-			curl_mime_name(field, "submit");
-			curl_mime_data(field, "send", CURL_ZERO_TERMINATED);
+		//	field = curl_mime_addpart(form);
+		//	curl_mime_name(field, "submit");
+		//	curl_mime_data(field, "send", CURL_ZERO_TERMINATED);
 
-			struct curl_slist *curl_headers = 0; /* init to 0 is important */
-			add_headers(&curl_headers);
+		//	struct curl_slist *curl_headers = 0; /* init to 0 is important */
+		//	add_headers(&curl_headers);
 
-			if (!content.size()) {
-				if (args.size()) {
+		//	if (!content.size()) {
+		//		if (args.size()) {
 
-					std::vector<std::string> strings;
-					for (auto& kv : args) {
-						strings.push_back(kv.first + "=" + kv.second);
-					}
+		//			std::vector<std::string> strings;
+		//			for (auto& kv : args) {
+		//				strings.push_back(kv.first + "=" + kv.second);
+		//			}
 
-					std::ostringstream imploded;
-					std::copy(strings.begin(), strings.end(),
-						std::ostream_iterator<std::string>(imploded, "&"));
+		//			std::ostringstream imploded;
+		//			std::copy(strings.begin(), strings.end(),
+		//				std::ostream_iterator<std::string>(imploded, "&"));
 
-					content = imploded.str();
-				}
-			}
+		//			content = imploded.str();
+		//		}
+		//	}
 
-			if (timeout && timeout != -1)
-				curl_easy_setopt(curl, CURLOPT_TIMEOUT, (long)(timeout / 1000));
+		//	if (timeout && timeout != -1)
+		//		curl_easy_setopt(curl, CURLOPT_TIMEOUT, (long)(timeout / 1000));
 
-			curl_easy_setopt(curl, CURLOPT_URL, &url[0]);
-			curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curl_headers);
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content.size());
-			curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content.data());
+		//	curl_easy_setopt(curl, CURLOPT_URL, &url[0]);
+		//	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curl_headers);
+		//	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content.size());
+		//	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content.data());
 
-			long http_code = 0;
-			res = curl_easy_perform(curl);
+		//	long http_code = 0;
+		//	res = curl_easy_perform(curl);
 
-			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+		//	curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
 
-			curl_slist_free_all(curl_headers);
-			curl_mime_free(form);
-			curl_easy_cleanup(curl);
+		//	curl_slist_free_all(curl_headers);
+		//	curl_mime_free(form);
+		//	curl_easy_cleanup(curl);
 
-			if (res != CURLE_OK)
-				return -1;
+		//	if (res != CURLE_OK)
+		//		return -1;
 
-			return http_code;
-		}
+		//	return http_code;
+		//}
 
 		std::recursive_mutex* mtx_access;
 		http_async_download_info async_info;

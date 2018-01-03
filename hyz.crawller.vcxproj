@@ -155,6 +155,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="http\base\base_request.h" />
+    <ClInclude Include="http\base\client_curl.h" />
+    <ClInclude Include="http\base\internal_request.h" />
+    <ClInclude Include="http\base\internal_manager.h" />
     <ClInclude Include="task\base\base_task.h" />
     <ClInclude Include="http\base\http_code.h" />
     <ClInclude Include="http\http_request.h" />
@@ -170,6 +173,8 @@
     <ClInclude Include="task\client_tasks\webcam_client.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="http\base\internal_request.cpp" />
+    <ClCompile Include="http\base\internal_manager.cpp" />
     <ClCompile Include="task\base\base_task.cpp" />
     <ClCompile Include="http\http_request.cpp" />
     <ClCompile Include="initializer\client_initializer.cpp" />
