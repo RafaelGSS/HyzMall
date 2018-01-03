@@ -312,6 +312,7 @@ namespace http {
 
 			curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curl_headers);
 
+			//Error has
 			res = curl_easy_perform(curl);
 			long http_code = 0;
 			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);

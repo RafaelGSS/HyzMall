@@ -39,7 +39,7 @@ namespace http {
 
 		};
 
-		std::shared_ptr<internal_request> create_request()
+		static std::shared_ptr<internal_request> create_request()
 		{
 			return std::make_shared<internal_request>();
 		}

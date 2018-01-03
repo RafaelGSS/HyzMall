@@ -13,7 +13,7 @@ using namespace http;
 
 internal_ptr http_request::create_request(std::string sub_path)
 {
-	auto r = http::base::create_request();
+	auto r = base::create_request();
 	r->set_server_name("hyz");
 	r->set_sub_path("/api/" + sub_path);
 	r->add_arg("headers", "Content-Type", "application/json");
@@ -27,7 +27,7 @@ std::string http_request::post_request(std::string file, std::string content, ui
 	req->set_data(content);
 
 	//auto res = pool_request::get_pool_manager()->send(req, ec, max_tries);
-	auto res = http::base::internal_manager::get()->send(req, ec, max_tries);
+	auto res = base::internal_manager::get()->send(req, ec, max_tries);
 	if (res != nullptr) {
 		return *res;
 	}
@@ -36,9 +36,11 @@ std::string http_request::post_request(std::string file, std::string content, ui
 }
 
 http_request::http_request() {
-	static http::base::internal_manager* im;
+	static base::internal_manager* im;
+	//static pool_request::pool_manager* im;
 	if (!im) {
-		im = http::base::internal_manager::get();
+		im = base::internal_manager::get();
+		//im = pool_request::get_pool_manager();
 		std::string pool_name = "hyz";
 
 		std::string pool_path = "/api/";
