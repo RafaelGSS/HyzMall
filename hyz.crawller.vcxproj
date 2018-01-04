@@ -155,7 +155,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="http\base\base_request.h" />
-    <ClInclude Include="http\base\client_curl.h" />
     <ClInclude Include="http\base\internal_request.h" />
     <ClInclude Include="http\base\internal_manager.h" />
     <ClInclude Include="task\base\base_task.h" />

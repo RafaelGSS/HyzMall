@@ -188,7 +188,9 @@ namespace http {
 				_out_file = _file;
 			}
 
-			download_filter() : _out_file(nullptr) {
+			download_filter() : _out_file(nullptr) 
+			{
+
 			}
 
 			void set_on_progress_event(std::function<bool(size_t, size_t)> _evt) {
@@ -256,7 +258,8 @@ namespace http {
 			}
 
 
-			download_filter filter(out_file);
+			//download_filter filter(out_file);
+			download_filter filter;
 
 			curl_easy_setopt(curl, CURLOPT_URL, &url[0]);
 			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &filter);
@@ -460,6 +463,7 @@ namespace http {
 			_is_busy = false;
 			_cancel = false;
 			mtx_access = new std::recursive_mutex();
+			out_file = nullptr;
 		}
 
 		~client_base() {
