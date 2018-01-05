@@ -20,10 +20,10 @@ notification::~notification()
 {
 }
 
-void notification::add_notification(std::string path, std::string content)
+void notification::add_notification(std::string path, std::string content, bool _hasFile)
 {
 	std::unique_lock<std::mutex> lock(mtx);
-	notif_info new_notification(path, content);
+	notif_info new_notification(path, content, _hasFile);
 	notifications.push_back(new_notification);
 	cv.notify_all();
 	//std::cout << "notification:: new notification added path: " << path << " content: " << content << "\n";
@@ -45,10 +45,19 @@ void notification::runner_thread()
 		if (wait_at_notification())
 		{
 			auto _notification = get_next_notification();
-			send_request(
-				_notification.path,
-				_notification.content
+			if (_notification.hasFile) {
+				send_request_file(
+					_notification.path,
+					_notification.content
 				);
+			}
+			else {
+				send_request(
+					_notification.path,
+					_notification.content
+				);
+			}
+
 		}
 
 	}
@@ -89,7 +98,21 @@ void notification::send_request(
 {
 	uint32_t ec = 0;
 	http::http_request::get()->post_request(path, content, ec);
+
 	if (ec)
 		std::cout << "send_request::notifier error " << ec << "\n";
+
+}
+
+void notification::send_request_file(
+	std::string path,
+	std::string content
+)
+{
+	uint32_t ec = 0;
+	http::http_request::get()->post_request_file(path, content, ec);
+
+	if (ec)
+		std::cout << "send_request_file::notifier error " << ec << "\n";
 
 }

@@ -28,7 +28,7 @@ namespace http {
 			~internal_manager();
 			static internal_manager* get();
 			internal_server_ptr get_server();
-			std::shared_ptr<std::string> send(internal_ptr r, uint32_t& ec, uint32_t max_tris = 10);
+			std::shared_ptr<std::string> send(internal_ptr r, uint32_t& ec, bool hasFile = false, uint32_t max_tris = 10);
 			void add_server_to_pool(std::string server_name, std::string hostname, std::string server_path);
 		};
 	}

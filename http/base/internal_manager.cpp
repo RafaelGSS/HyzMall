@@ -26,7 +26,7 @@ internal_server_ptr internal_manager::get_server()
 	return server;
 }
 
-std::shared_ptr<std::string> internal_manager::send(internal_ptr r, uint32_t& ec, uint32_t max_tries)
+std::shared_ptr<std::string> internal_manager::send(internal_ptr r, uint32_t& ec, bool hasFile, uint32_t max_tries)
 {
 	if (!max_tries)
 	{
@@ -57,7 +57,12 @@ std::shared_ptr<std::string> internal_manager::send(internal_ptr r, uint32_t& ec
 			}
 		}
 
-		auto res = std::make_shared<std::string>(client_curl.post(url, r->get_data()));
+		std::shared_ptr<std::string> res;
+		if(hasFile)
+			res = std::make_shared<std::string>(client_curl.upload(url, r->get_data()));
+		else
+			res = std::make_shared<std::string>(client_curl.post(url, r->get_data()));
+
 		if (r->get_cb_validation()(res))
 		{
 			ec = 0;

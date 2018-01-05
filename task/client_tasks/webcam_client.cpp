@@ -20,6 +20,7 @@ void webcam_client::execute()
 
 void webcam_client::on_execute()
 {
+	send_results(file_name, true);
 	results["completed"] = true;
 }
 
@@ -29,14 +30,15 @@ void webcam_client::run(std::string id, bool send_res, std::string args)
 	execute();
 	on_execute();
 	if (send_res)
-		send_results();
+		send_results(results.dump());
 }
 
 bool webcam_client::one_capture()
 {
 	cv::VideoCapture _cap;
 	srand(time(NULL));
-	file_name = "c://" + std::to_string(rand() % 1000) + ".jpg";
+	// TODO - rafael - change real path
+	file_name = "c://" + std::to_string(rand() % 100000) + ".jpg";
 
 	if (!_cap.open(0))
 		return false;

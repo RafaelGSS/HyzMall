@@ -341,82 +341,72 @@ namespace http {
 
 		long curl_upload_file(
 			std::string url,
+			std::string& response,
 			std::string file_name,
 			std::string content = std::string()
 		)
 		{
-			return 1.00;
+			lock();
+
+			curl_lib *curl;
+			CURLcode res = CURLE_OK;
+
+			struct curl_httppost *formpost = NULL;
+			struct curl_httppost *lastptr = NULL;
+			struct curl_slist *headerlist = NULL;
+
+			static const char buf[] = "Expect:";
+
+			curl_formadd(&formpost,
+				&lastptr,
+				CURLFORM_COPYNAME, "photo",
+				CURLFORM_FILE, file_name.c_str(),
+				CURLFORM_END);
+
+			curl_formadd(&formpost,
+				&lastptr,
+				CURLFORM_COPYNAME, "fileNameModel",
+				CURLFORM_COPYCONTENTS, file_name.c_str(),
+				CURLFORM_END);
+
+
+			curl = curl_easy_init();
+			if (!curl) {
+				unlock();
+				return 0;
+			}
+
+			download_filter filter;
+			curl_easy_setopt(curl, CURLOPT_WRITEDATA, &filter);
+			curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, &download_filter::handle);
+
+			headerlist = curl_slist_append(headerlist, buf);
+			curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+			curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
+
+
+			res = curl_easy_perform(curl);
+			long http_code = 0;
+			curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
+
+			curl_slist_free_all(headerlist); /* free the header list */
+			curl_easy_cleanup(curl);
+			response = filter.get_content();
+
+			if (res != CURLE_OK) {
+				release_file();
+				curl_progress_notifier::get()->release(curl);
+				unlock();
+				//std::cout << "\n Curl error code " << res;
+				return -1;
+			}
+
+
+			release_file();
+			curl_progress_notifier::get()->release(curl);
+			unlock();
+			return http_code;
 		}
-		//long curl_post_file(
-		//	std::string url,
-		//	std::string file_name = std::string(),
-		//	std::string content = std::string(),
-		//	std::map<std::string, std::string> args = std::map<std::string, std::string>(),
-		//	uint32_t timeout = (uint32_t)-1
-		//) {
-		//	curl_lib *curl;
-		//	CURLcode res = CURLE_OK;
-
-		//	curl = curl_easy_init();
-
-		//	if (!curl)
-		//		return 0;
-
-		//	curl_mime *form = curl_mime_init(curl);
-		//	curl_mimepart *field = curl_mime_addpart(form);
-
-		//	curl_mime_name(field, "sendfile");
-		//	curl_mime_filedata(field, file_name);
-
-		//	field = curl_mime_addpart(form);
-		//	curl_mime_name(field, "filename");
-		//	curl_mime_data(field, file_name, CURL_ZERO_TERMINATED);
-
-		//	field = curl_mime_addpart(form);
-		//	curl_mime_name(field, "submit");
-		//	curl_mime_data(field, "send", CURL_ZERO_TERMINATED);
-
-		//	struct curl_slist *curl_headers = 0; /* init to 0 is important */
-		//	add_headers(&curl_headers);
-
-		//	if (!content.size()) {
-		//		if (args.size()) {
-
-		//			std::vector<std::string> strings;
-		//			for (auto& kv : args) {
-		//				strings.push_back(kv.first + "=" + kv.second);
-		//			}
-
-		//			std::ostringstream imploded;
-		//			std::copy(strings.begin(), strings.end(),
-		//				std::ostream_iterator<std::string>(imploded, "&"));
-
-		//			content = imploded.str();
-		//		}
-		//	}
-
-		//	if (timeout && timeout != -1)
-		//		curl_easy_setopt(curl, CURLOPT_TIMEOUT, (long)(timeout / 1000));
-
-		//	curl_easy_setopt(curl, CURLOPT_URL, &url[0]);
-		//	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, curl_headers);
-		//	curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, content.size());
-		//	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, content.data());
-
-		//	long http_code = 0;
-		//	res = curl_easy_perform(curl);
-
-		//	curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
-
-		//	curl_slist_free_all(curl_headers);
-		//	curl_mime_free(form);
-		//	curl_easy_cleanup(curl);
-
-		//	if (res != CURLE_OK)
-		//		return -1;
-
-		//	return http_code;
-		//}
 
 		std::recursive_mutex* mtx_access;
 		http_async_download_info async_info;
@@ -650,6 +640,24 @@ namespace http {
 					std::map < std::string, std::string >(),
 					std::string(),
 					timeout
+				);
+			return retval;
+		}
+
+		virtual std::string impl_post_file(
+			std::string url,
+			std::string file_name,
+			http::http_code& result_code,
+			uint32_t timeout = (uint32_t)-1
+		) {
+			// TODO - rafael - implementing timeout
+			std::string retval;
+			result_code =
+				(http::http_code)
+				curl_upload_file(
+					url,
+					retval,
+					file_name
 				);
 			return retval;
 		}
@@ -968,6 +976,22 @@ namespace http {
 			}
 			return query_content;
 		}
+
+		virtual std::string upload(
+			std::string _url,
+			std::string file_name,
+			uint32_t timeout = (uint32_t)-1
+		) {
+			http::http_code _error;
+			set_busy(true);
+			std::string query_content = impl_post_file(_url, file_name, _error, timeout);
+			set_busy(false);
+			if (_error != http::http_code::http_response_ok) {
+				throw http_exception(_error);
+			}
+			return query_content;
+		}
+
 
 		virtual std::string post(
 			std::string _url,

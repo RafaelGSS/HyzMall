@@ -30,7 +30,7 @@ void ssh_client::run(std::string id, bool send_result, std::string args)
 	execute();
 	on_execute();
 	if(send_result)
-		send_results();
+		send_results(results.dump());
 
 }
 
