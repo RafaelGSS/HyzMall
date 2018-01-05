@@ -26,7 +26,7 @@ internal_server_ptr internal_manager::get_server()
 	return server;
 }
 
-std::shared_ptr<std::string> internal_manager::send(internal_ptr r, uint32_t& ec, bool hasFile, uint32_t max_tries)
+std::shared_ptr<std::string> internal_manager::send(internal_ptr r, uint32_t& ec, uint32_t max_tries, bool hasFile)
 {
 	if (!max_tries)
 	{

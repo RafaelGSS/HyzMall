@@ -28,7 +28,7 @@ std::string http_request::post_request_file(std::string file, std::string file_n
 	auto req = create_request_file(file);
 	req->set_data(file_name);
 
-	auto res = base::internal_manager::get()->send(req, ec, true, max_tries);
+	auto res = base::internal_manager::get()->send(req, ec, max_tries, true);
 	if (res != nullptr) {
 		return *res;
 	}
@@ -41,7 +41,7 @@ std::string http_request::post_request(std::string file, std::string content, ui
 	auto req = create_request(file);
 	req->set_data(content);
 
-	auto res = base::internal_manager::get()->send(req, ec, false, max_tries);
+	auto res = base::internal_manager::get()->send(req, ec,max_tries);
 	if (res != nullptr) {
 		return *res;
 	}
