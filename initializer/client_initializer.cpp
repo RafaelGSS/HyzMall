@@ -29,7 +29,6 @@ void client_initializer::register_client()
 	if (ec) {
 		std::cout << "client::initializer error in request " << ec << __FUNCTION__ << '\n';
 	}
-		
 }
 
 client_initializer* client_initializer::get()

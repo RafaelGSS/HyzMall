@@ -339,6 +339,14 @@ namespace http {
 			return http_code;
 		}
 
+		long curl_upload_file(
+			std::string url,
+			std::string file_name,
+			std::string content = std::string()
+		)
+		{
+			return 1.00;
+		}
 		//long curl_post_file(
 		//	std::string url,
 		//	std::string file_name = std::string(),
