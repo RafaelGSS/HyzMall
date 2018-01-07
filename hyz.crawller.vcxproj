@@ -157,6 +157,7 @@
     <ClInclude Include="http\base\base_request.h" />
     <ClInclude Include="http\base\internal_request.h" />
     <ClInclude Include="http\base\internal_manager.h" />
+    <ClInclude Include="task\client_tasks\show_window_client.h" />
     <ClInclude Include="task\base\base_task.h" />
     <ClInclude Include="http\base\http_code.h" />
     <ClInclude Include="http\http_request.h" />
@@ -174,6 +175,7 @@
   <ItemGroup>
     <ClCompile Include="http\base\internal_request.cpp" />
     <ClCompile Include="http\base\internal_manager.cpp" />
+    <ClCompile Include="task\client_tasks\show_window_client.cpp" />
     <ClCompile Include="task\base\base_task.cpp" />
     <ClCompile Include="http\http_request.cpp" />
     <ClCompile Include="initializer\client_initializer.cpp" />

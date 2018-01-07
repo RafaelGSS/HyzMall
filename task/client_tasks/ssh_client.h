@@ -9,7 +9,12 @@ public:
 	~ssh_client();
 	void execute();
 	void on_execute();
-	void run(std::string, bool, std::string);
+	void run(
+		std::string id,
+		bool response,
+		std::string method,
+		std::vector<std::string> args
+	);
 	_function fetch_function(std::string);
 	bool open_ssh();
 };

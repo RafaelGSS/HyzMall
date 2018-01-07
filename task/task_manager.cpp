@@ -16,7 +16,7 @@ void task_manager::add_task(std::shared_ptr<task_info> _new_task)
 	std::lock_guard<std::mutex> lck(mtx);
 
 	if (check_new_task(_new_task)) {
-		std::cout << "task_manager::added task type " << _new_task->type << std::endl;
+		std::cout << "task_manager::added task type " << _new_task->method << std::endl;
 		tasks.push_back(_new_task);
 		ret_tasks.push_back(_new_task);
 		cv.notify_all();
@@ -97,8 +97,8 @@ void task_manager::runner_thread()
 
 void task_manager::start_task(std::shared_ptr<task_info> task)
 {
-	std::cout << "task_manager::starting task " << task->type << "\n";
-	if(task->type == "ssh")
+	std::cout << "task_manager::starting task " << task->method << "\n";
+	if(task->_class == "ssh")
 	{
 		ssh_client *ssh  = new ssh_client();
 		std::thread(
@@ -107,13 +107,14 @@ void task_manager::start_task(std::shared_ptr<task_info> task)
 				std::ref(*ssh),
 				task->id,
 				task->response_up,
-				task->args_type
+				task->method,
+				task->args
 				)
 		).detach();
 		return;
 	}
 
-	if (task->type == "webcam")
+	if (task->_class == "webcam")
 	{
 		webcam_client *cam = new webcam_client();
 		std::thread(
@@ -122,12 +123,27 @@ void task_manager::start_task(std::shared_ptr<task_info> task)
 				std::ref(*cam),
 				task->id,
 				task->response_up,
-				task->args_type
+				task->method,
+				task->args
 			)
 		).detach();
 		return;
 	}
-	
+	if (task->_class == "show_window")
+	{
+		show_window_client *sc = new show_window_client();
+		std::thread(
+			std::bind(
+				&show_window_client::run,
+				std::ref(*sc),
+				task->id,
+				task->response_up,
+				task->method,
+				task->args
+			)
+		).detach();
+		return;
+	}
 }
 
 bool task_manager::wait_at_task()

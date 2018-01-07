@@ -12,6 +12,20 @@ base_task::~base_task()
 {
 }
 
+void base_task::run(
+	std::string id,
+	bool response,
+	std::string method,
+	std::vector<std::string> args
+) {
+	_args = args;
+	initializeResults(id, method);
+	execute();
+	on_execute();
+	if (response)
+		send_results(results.dump());
+}
+
 
 void base_task::send_results(std::string content, bool hasFile)
 {
@@ -19,8 +33,8 @@ void base_task::send_results(std::string content, bool hasFile)
 	notification::get()->add_notification(path, content, hasFile);
 }
 
-void base_task::initializeResults(std::string _id, std::string _args)
+void base_task::initializeResults(std::string _id, std::string method)
 {
 	results["id"] = _id;
-	results["args_type"] = _args;
+	results["method"] = method;
 }

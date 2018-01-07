@@ -14,7 +14,7 @@ webcam_client::~webcam_client()
 void webcam_client::execute()
 {
 	
-	auto funct = fetch_function(results["args_type"]);
+	auto funct = fetch_function(results["method"]);
 	funct();
 }
 
@@ -24,14 +24,6 @@ void webcam_client::on_execute()
 	results["completed"] = true;
 }
 
-void webcam_client::run(std::string id, bool send_res, std::string args)
-{
-	initializeResults(id, args);
-	execute();
-	on_execute();
-	if (send_res)
-		send_results(results.dump());
-}
 
 bool webcam_client::one_capture()
 {
@@ -59,6 +51,15 @@ bool webcam_client::video_capture()
 {
 	// TODO - rafael - create function to capture video
 	return true;
+}
+
+void webcam_client::run(
+	std::string id,
+	bool response,
+	std::string method,
+	std::vector<std::string> args
+) {
+	base_task::run(id, response, method, args);
 }
 
 bool webcam_client::check_webcam()

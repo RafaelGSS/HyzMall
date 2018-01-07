@@ -16,20 +16,22 @@ using json_var = nlohmann::json;
 struct task_info {
 public:
 	std::string id;
-	std::string type;
-	std::string args_type;
+	std::string _class;
+	std::string method;
+	std::vector<std::string> args;
 	bool response_up;
 
 	task_info(json_var _record, bool _response_up = false)
 	{
 		id = _record["id"].dump();
-		type = _record["type"].dump();
+		_class = _record["class_name"].dump();
+		method = _record["method"].dump();
 		response_up = _response_up;
-		args_type = _record["args_type"].dump();
+		args = args_to_vector(_record["args"].dump());
 		
-		trim_json(args_type);
-		trim_json(type);
 		trim_json(id);
+		trim_json(_class);
+		trim_json(method);
 
 	}
 	void trim_json(std::string& str)
@@ -39,6 +41,20 @@ public:
 			str.end()
 		);
 
+	}
+
+	std::vector<std::string> args_to_vector(std::string args)
+	{
+		trim_json(args);
+		std::vector<std::string> result;
+		std::istringstream iss(args);
+
+		for (std::string token; std::getline(iss, token, '|'); )
+		{
+			result.push_back(std::move(token));
+		}
+
+		return result;
 	}
 };
 
