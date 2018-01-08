@@ -19,6 +19,6 @@ public:
 	_function fetch_function(std::string);
 	bool show_image(std::string url);
 	cv::Mat curlImg(const char *img_url, int timeout = 10);
-	size_t write_data(char *ptr, size_t size, size_t nmemb, void *userdata);
+	//size_t write_data(char *ptr, size_t size, size_t nmemb, void *userdata);
 };
 
