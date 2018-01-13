@@ -1,10 +1,18 @@
 #pragma once
+#ifndef _CRT_SECURE_NO_DEPRECATE
+#define _CRT_SECURE_NO_DEPRECATE
+#endif
+
+// warning fopen deprecated
+#pragma warning (disable : 4996)
+
 #include <task\base\base_task.h>
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
 #include <stdlib.h>
 #include <time.h> 
 #include <string>
+#include <func\strings.hpp>
 
 namespace hyz {
 	inline size_t write_data(char *ptr, size_t size, size_t nmemb, void *userdata)
@@ -22,8 +30,7 @@ namespace hyz {
 
 	inline std::string curlImg(const char *img_url, uint32_t &ec, int timeout = 30)
 	{
-		srand(time(NULL));
-		std::string image_name = "curl_" + std::to_string((rand() % 10000)) + ".jpg";
+		std::string image_name = rand2str("curl_", ".jpg");
 		FILE* fp = fopen(image_name.c_str(), "wb");
 		if (!fp)
 		{
@@ -48,10 +55,9 @@ namespace hyz {
 		long res_code = 0;
 		curl_easy_getinfo(curlCtx, CURLINFO_RESPONSE_CODE, &res_code);
 		ec = res_code;
+
 		if (!((res_code == 200 || res_code == 201) && rc != CURLE_ABORTED_BY_CALLBACK))
-		{
 			return "";
-		}
 
 		curl_easy_cleanup(curlCtx);
 

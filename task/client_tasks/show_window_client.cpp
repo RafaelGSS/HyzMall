@@ -45,6 +45,8 @@ _function show_window_client::fetch_function(std::string _function_name)
 			this,
 			_args[0]
 		);
+
+	return _function();
 }
 
 
@@ -53,6 +55,7 @@ bool show_window_client::show_image(std::string url)
 	cv::Mat image;
 	uint32_t ec = 0;
 	std::string image_name = hyz::curlImg(url.c_str(), ec);
+	std::string window_name = hyz::rand2str("Surprise");
 	
 	if (image_name == "")
 		return false;
@@ -62,8 +65,8 @@ bool show_window_client::show_image(std::string url)
 	if (image.empty() || !image.data)
 		return false;
 
-	cv::namedWindow("Surprise", CV_WINDOW_AUTOSIZE);
-	imshow("Surprise", image);
+	cv::namedWindow(window_name.c_str(), CV_WINDOW_AUTOSIZE);
+	imshow(window_name.c_str(), image);
 	cv::waitKey(0);
 	return true;
 }

@@ -1,6 +1,8 @@
 #ifndef _FUNCTIONS_STRINGS_HYZ
 #define _FUNCTIONS_STRINGS_HYZ
 #include <string>
+#include <stdlib.h>
+#include <time.h> 
 #include <Windows.h>
 
 
@@ -17,6 +19,13 @@ namespace hyz {
 		std::wstring r(buf);
 		delete[] buf;
 		return r;
+	}
+
+	inline std::string rand2str(const char* lflag = "", const char* rflag = "")
+	{
+		// to remove warning
+		srand(static_cast<UINT>(time(NULL)));
+		return lflag + std::to_string((rand() % 100)) + rflag;
 	}
 }
 
