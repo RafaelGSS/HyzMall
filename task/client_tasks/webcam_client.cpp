@@ -15,13 +15,12 @@ void webcam_client::execute()
 {
 	
 	auto funct = fetch_function(results["method"]);
-	funct();
+	results["completed"] = funct();
 }
 
 void webcam_client::on_execute()
 {
 	send_results(file_name, true);
-	results["completed"] = true;
 }
 
 

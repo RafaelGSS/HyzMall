@@ -1,6 +1,7 @@
 #pragma once
 #include <task\base\base_task.h>
 #include <functional>
+#include <vector>
 
 class ssh_client : public client::base::base_task
 {
