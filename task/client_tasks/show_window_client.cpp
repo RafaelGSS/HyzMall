@@ -68,6 +68,8 @@ bool show_window_client::show_image(std::string url)
 	cv::namedWindow(window_name.c_str(), CV_WINDOW_AUTOSIZE);
 	imshow(window_name.c_str(), image);
 	cv::waitKey(0);
+
+	// TODO - exclude image
 	return true;
 }
 

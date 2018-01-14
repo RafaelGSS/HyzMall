@@ -27,9 +27,8 @@ void webcam_client::on_execute()
 bool webcam_client::one_capture()
 {
 	cv::VideoCapture _cap;
-	srand(time(NULL));
-	// TODO - rafael - change real path
-	file_name = "c://" + std::to_string(rand() % 100000) + ".jpg";
+	
+	file_name = hyz::rand2str("", ".jpg");
 
 	if (!_cap.open(0))
 		return false;

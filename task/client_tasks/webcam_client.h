@@ -3,6 +3,7 @@
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
 #include <functional>
+#include <func\strings.hpp>
 
 class webcam_client : public client::base::base_task
 {
