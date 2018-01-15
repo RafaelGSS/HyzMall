@@ -69,7 +69,9 @@ bool show_window_client::show_image(std::string url)
 	imshow(window_name.c_str(), image);
 	cv::waitKey(0);
 
-	// TODO - exclude image
+	if (std::remove(image_name.c_str()))
+		std::cout << "error removing file";
+
 	return true;
 }
 

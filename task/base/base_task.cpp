@@ -27,7 +27,7 @@ void base_task::run(
 }
 
 
-void base_task::send_results(std::string content, bool hasFile)
+void base_task::send_results(std::string content, std::string hasFile)
 {
 	//std::cout << "added notification " << results.dump() << "\n";
 	notification::get()->add_notification(path, content, hasFile);

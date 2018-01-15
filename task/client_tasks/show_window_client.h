@@ -2,6 +2,7 @@
 #include <task\base\base_task.h>
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
+#include <cstdio>
 #include <vector>
 #include <Windows.h>
 #include <func\strings.hpp>

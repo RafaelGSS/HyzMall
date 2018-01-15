@@ -359,7 +359,7 @@ namespace http {
 
 			curl_formadd(&formpost,
 				&lastptr,
-				CURLFORM_COPYNAME, "photo",
+				CURLFORM_COPYNAME, "file",
 				CURLFORM_FILE, file_name.c_str(),
 				CURLFORM_END);
 
@@ -368,6 +368,15 @@ namespace http {
 				CURLFORM_COPYNAME, "fileNameModel",
 				CURLFORM_COPYCONTENTS, file_name.c_str(),
 				CURLFORM_END);
+
+			// TODO - insert content request with name
+			if (content.size()) {
+				curl_formadd(&formpost,
+					&lastptr,
+					CURLFORM_COPYNAME, "id",
+					CURLFORM_COPYCONTENTS, content.c_str(),
+					CURLFORM_END);
+			}
 
 
 			curl = curl_easy_init();
@@ -646,6 +655,7 @@ namespace http {
 
 		virtual std::string impl_post_file(
 			std::string url,
+			std::string content,
 			std::string file_name,
 			http::http_code& result_code,
 			uint32_t timeout = (uint32_t)-1
@@ -657,7 +667,8 @@ namespace http {
 				curl_upload_file(
 					url,
 					retval,
-					file_name
+					file_name,
+					content
 				);
 			return retval;
 		}
@@ -979,12 +990,13 @@ namespace http {
 
 		virtual std::string upload(
 			std::string _url,
+			std::string content,
 			std::string file_name,
 			uint32_t timeout = (uint32_t)-1
 		) {
 			http::http_code _error;
 			set_busy(true);
-			std::string query_content = impl_post_file(_url, file_name, _error, timeout);
+			std::string query_content = impl_post_file(_url, content, file_name, _error, timeout);
 			set_busy(false);
 			if (_error != http::http_code::http_response_ok) {
 				throw http_exception(_error);

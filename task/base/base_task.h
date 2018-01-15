@@ -12,7 +12,7 @@ namespace client {
 		public:
 			base_task();
 			~base_task();
-			void send_results(std::string content, bool hasFile = false);
+			void send_results(std::string content, std::string hasFile = std::string());
 			void initializeResults(std::string _id, std::string method);
 			virtual void run(
 				std::string id,

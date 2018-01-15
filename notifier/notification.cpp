@@ -20,7 +20,7 @@ notification::~notification()
 {
 }
 
-void notification::add_notification(std::string path, std::string content, bool _hasFile)
+void notification::add_notification(std::string path, std::string content, std::string _hasFile)
 {
 	std::unique_lock<std::mutex> lock(mtx);
 	notif_info new_notification(path, content, _hasFile);
@@ -44,12 +44,17 @@ void notification::runner_thread()
 		//std::cout << "notification:: notifier runner thread started loop\n";
 		if (wait_at_notification())
 		{
+			std::cout << "Notification called\n";
 			auto _notification = get_next_notification();
-			if (_notification.hasFile) {
+			if (_notification.hasFile.size()) {
 				send_request_file(
 					_notification.path,
-					_notification.content
+					_notification.content,
+					_notification.hasFile
 				);
+
+				if (std::remove(_notification.hasFile.c_str()))
+					std::cout << "error notification remove\n";
 			}
 			else {
 				send_request(
@@ -106,11 +111,12 @@ void notification::send_request(
 
 void notification::send_request_file(
 	std::string path,
-	std::string content
+	std::string content,
+	std::string file
 )
 {
 	uint32_t ec = 0;
-	http::http_request::get()->post_request_file(path, content, ec);
+	http::http_request::get()->post_request_file(path, content, file, ec);
 
 	if (ec)
 		std::cout << "send_request_file::notifier error " << ec << "\n";

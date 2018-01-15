@@ -60,8 +60,8 @@ void requester::runner_thread()
 		std::cout << "requester::capturing task client\n";
 		update_tasks();
 
-		std::cout << "requester::capturing task all\n";
-		update_tasks_all();
+		/*std::cout << "requester::capturing task all\n";
+		update_tasks_all();*/
 		//send_task_os();
 
 		std::this_thread::sleep_for(

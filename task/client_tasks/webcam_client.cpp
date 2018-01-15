@@ -20,7 +20,9 @@ void webcam_client::execute()
 
 void webcam_client::on_execute()
 {
-	send_results(file_name, true);
+	send_results(results["id"],file_name);
+	/*if (std::remove(file_name.c_str()))
+		std::cout << "error in remove file webcam\n";*/
 }
 
 

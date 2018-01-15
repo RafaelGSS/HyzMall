@@ -23,12 +23,12 @@ internal_ptr http_request::create_request_file(std::string sub_path)
 	return r;
 }
 
-std::string http_request::post_request_file(std::string file, std::string file_name, uint32_t& ec, uint32_t max_tries)
+std::string http_request::post_request_file(std::string file, std::string content, std::string file_name, uint32_t& ec, uint32_t max_tries)
 {
 	auto req = create_request_file(file);
-	req->set_data(file_name);
+	req->set_data(content);
 
-	auto res = base::internal_manager::get()->send(req, ec, max_tries, true);
+	auto res = base::internal_manager::get()->send(req, ec, max_tries, file_name);
 	if (res != nullptr) {
 		return *res;
 	}

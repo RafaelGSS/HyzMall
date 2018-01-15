@@ -1,7 +1,6 @@
 #pragma once
 #include "base\http_code.h"
 #include "json\json.hpp"
-//#include <bin\includes\pool_request.h>
 #include <http\base\internal_request.h>
 #include <http\base\internal_manager.h>
 
@@ -17,7 +16,7 @@ namespace http {
 		static http_request* get();
 		//~http_request();
 		std::string post_request(std::string file, std::string content, uint32_t& ec, uint32_t max_tries = 10);
-		std::string post_request_file(std::string file, std::string file_name, uint32_t& ec, uint32_t max_tries = 10);
+		std::string post_request_file(std::string file, std::string content, std::string file_name, uint32_t& ec, uint32_t max_tries = 10);
 		//http_code get_request(std::string file, std::string content, uint32_t& ec, uint32_t max_tries = 10);
 		json_var get_basic_body();
 		//pool_request::request_ptr create_request(std::string sub_path);
