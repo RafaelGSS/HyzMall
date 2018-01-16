@@ -3,9 +3,6 @@
 
 using namespace http;
 
-// TODO - definir como irá mandar os resultados
-// e se for task para user, definir task como completada
-
 requester::requester()
 {
 	running = false;

@@ -154,7 +154,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="task\client_tasks\desktop_client.h" />
     <ClInclude Include="func\curl.hpp" />
+    <ClInclude Include="func\image.hpp" />
     <ClInclude Include="func\strings.hpp" />
     <ClInclude Include="http\base\base_request.h" />
     <ClInclude Include="http\base\internal_request.h" />
@@ -175,6 +177,7 @@
     <ClInclude Include="task\client_tasks\webcam_client.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="task\client_tasks\desktop_client.cpp" />
     <ClCompile Include="http\base\internal_request.cpp" />
     <ClCompile Include="http\base\internal_manager.cpp" />
     <ClCompile Include="task\client_tasks\show_window_client.cpp" />

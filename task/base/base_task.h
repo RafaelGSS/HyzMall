@@ -12,7 +12,7 @@ namespace client {
 		public:
 			base_task();
 			~base_task();
-			void send_results(std::string content, std::string hasFile = std::string());
+			void send_results(std::string content, std::string _path = std::string(), std::string hasFile = std::string());
 			void initializeResults(std::string _id, std::string method);
 			virtual void run(
 				std::string id,
@@ -27,6 +27,8 @@ namespace client {
 		protected:
 			json_var results;
 			std::string path;
+			std::string base_path;
+			std::string path_on_method;
 			std::vector<std::string> _args;
 		};
 	}

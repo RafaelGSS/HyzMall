@@ -3,7 +3,8 @@
 
 show_window_client::show_window_client()
 {
-	path = "user/results_show_window";
+	base_path = "user/results_show_window/";
+	path = "user/results";
 }
 
 

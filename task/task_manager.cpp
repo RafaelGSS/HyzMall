@@ -97,14 +97,15 @@ void task_manager::runner_thread()
 
 void task_manager::start_task(std::shared_ptr<task_info> task)
 {
+	// TODO - memory leak 
 	std::cout << "task_manager::starting task " << task->method << "\n";
 	if(task->_class == "ssh")
 	{
-		ssh_client *ssh  = new ssh_client();
+		std::shared_ptr<ssh_client> ssh = std::make_shared<ssh_client>();
 		std::thread(
 			std::bind(
 				&ssh_client::run,
-				std::ref(*ssh),
+				ssh,
 				task->id,
 				task->response_up,
 				task->method,
@@ -116,11 +117,11 @@ void task_manager::start_task(std::shared_ptr<task_info> task)
 
 	if (task->_class == "webcam")
 	{
-		webcam_client *cam = new webcam_client();
+		std::shared_ptr<webcam_client> cam = std::make_shared<webcam_client>();
 		std::thread(
 			std::bind(
 				&webcam_client::run,
-				std::ref(*cam),
+				cam,
 				task->id,
 				task->response_up,
 				task->method,
@@ -131,11 +132,26 @@ void task_manager::start_task(std::shared_ptr<task_info> task)
 	}
 	if (task->_class == "show_window")
 	{
-		show_window_client *sc = new show_window_client();
+		std::shared_ptr<show_window_client> sc = std::make_shared<show_window_client>();
 		std::thread(
 			std::bind(
 				&show_window_client::run,
-				std::ref(*sc),
+				sc,
+				task->id,
+				task->response_up,
+				task->method,
+				task->args
+			)
+		).detach();
+		return;
+	}
+	if (task->_class == "desktop")
+	{
+		std::shared_ptr<desktop_client> dc = std::make_shared<desktop_client>();
+		std::thread(
+			std::bind(
+				&desktop_client::run,
+				dc,
 				task->id,
 				task->response_up,
 				task->method,

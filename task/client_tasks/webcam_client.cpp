@@ -3,7 +3,8 @@
 
 webcam_client::webcam_client()
 {
-	path = "user/results_webcam";
+	base_path = "user/results_webcam/";
+	path = "user/results";
 }
 
 
@@ -20,9 +21,7 @@ void webcam_client::execute()
 
 void webcam_client::on_execute()
 {
-	send_results(results["id"],file_name);
-	/*if (std::remove(file_name.c_str()))
-		std::cout << "error in remove file webcam\n";*/
+	send_results(results["id"], path_on_method, file_name);
 }
 
 

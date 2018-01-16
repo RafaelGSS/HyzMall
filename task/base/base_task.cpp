@@ -23,18 +23,21 @@ void base_task::run(
 	execute();
 	on_execute();
 	if (response)
-		send_results(results.dump());
+		send_results(results.dump(), path);
 }
 
 
-void base_task::send_results(std::string content, std::string hasFile)
+void base_task::send_results(std::string content, std::string _path, std::string hasFile)
 {
 	//std::cout << "added notification " << results.dump() << "\n";
-	notification::get()->add_notification(path, content, hasFile);
+	auto pPath = _path.size() > 0 ? _path : path;
+	notification::get()->add_notification(pPath, content, hasFile);
 }
 
 void base_task::initializeResults(std::string _id, std::string method)
 {
 	results["id"] = _id;
 	results["method"] = method;
+	path_on_method = base_path + method;
+
 }
