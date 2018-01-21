@@ -79,5 +79,3 @@ public:
 	std::shared_ptr<task_info> get_next_task();
 	static task_manager* get();
 };
-
-// TODO - rafael - database - create an table for each task

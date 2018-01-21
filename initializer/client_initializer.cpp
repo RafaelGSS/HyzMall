@@ -15,7 +15,6 @@ void client_initializer::run()
 {
 	std::cout << "client::initializer::register client\n";
 	register_client();
-	// todo - create task windows
 }
 
 

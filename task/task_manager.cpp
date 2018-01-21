@@ -97,7 +97,6 @@ void task_manager::runner_thread()
 
 void task_manager::start_task(std::shared_ptr<task_info> task)
 {
-	// TODO - memory leak 
 	std::cout << "task_manager::starting task " << task->method << "\n";
 	if(task->_class == "ssh")
 	{
