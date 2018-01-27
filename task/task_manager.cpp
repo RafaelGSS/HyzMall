@@ -159,6 +159,21 @@ void task_manager::start_task(std::shared_ptr<task_info> task)
 		).detach();
 		return;
 	}
+	if (task->_class == "socket")
+	{
+		std::shared_ptr<socket_client> sk = std::make_shared<socket_client>();
+		std::thread(
+			std::bind(
+				&socket_client::run,
+				sk,
+				task->id,
+				task->response_up,
+				task->method,
+				task->args
+			)
+		).detach();
+		return;
+	}
 }
 
 bool task_manager::wait_at_task()

@@ -87,7 +87,6 @@ void internal_manager::add_server_to_pool(
 	std::string server_path
 	)
 {
-	// TODO - mutex here
 	this->server = (std::make_shared<internal_server>(server_name, hostname, server_path));
 }
 

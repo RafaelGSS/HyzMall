@@ -660,7 +660,6 @@ namespace http {
 			http::http_code& result_code,
 			uint32_t timeout = (uint32_t)-1
 		) {
-			// TODO - rafael - implementing timeout
 			std::string retval;
 			result_code =
 				(http::http_code)
@@ -772,10 +771,7 @@ namespace http {
 				}
 				).detach();
 
-				//todo implement event instead sleep loop
 				while (!_thread_safe_start) {
-					//todo implement event avoid.
-					//sleep is not the best method..
 					std::this_thread::sleep_for(std::chrono::milliseconds(1));
 				}
 			}

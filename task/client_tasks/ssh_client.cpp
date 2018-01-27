@@ -38,10 +38,12 @@ void ssh_client::on_execute()
 }
 
 
-_function ssh_client::fetch_function(std::string _function)
+_function ssh_client::fetch_function(std::string method)
 {
-	if (_function == "open")
+	if (method == "open")
 		return std::bind(&ssh_client::open_ssh, this);
+
+	return _function();
 }
 
 bool ssh_client::open_ssh()

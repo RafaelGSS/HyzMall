@@ -6,7 +6,7 @@ namespace initializer {
 	class client_initializer
 	{
 	private:
-		void register_client();
+		bool check_one_instance();
 	public:
 		void run();
 		client_initializer();

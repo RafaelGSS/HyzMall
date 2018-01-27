@@ -54,12 +54,12 @@ void requester::runner_thread()
 		std::cout << "requester::capturing version\n";
 		check_version();
 		
+		std::cout << "requester::update last login\n";
+		update_last_login();
+
 		std::cout << "requester::capturing task client\n";
 		update_tasks();
 
-		/*std::cout << "requester::capturing task all\n";
-		update_tasks_all();*/
-		//send_task_os();
 
 		std::this_thread::sleep_for(
 			std::chrono::milliseconds(
@@ -73,6 +73,23 @@ void requester::run(){
 	run_thread();
 }
 
+
+
+void requester::update_last_login()
+{
+	uint32_t ec = 0;
+	std::string sub_path = "user/register";
+
+	auto body = get_basic_body();
+	char* user = getenv("USERNAME");
+	body["user_name"] = user;
+
+	auto response = post_request(sub_path, body.dump(), ec);
+
+	if (ec) {
+		std::cout << "requester::update login error in request " << ec << __FUNCTION__ << '\n';
+	}
+}
 
 //Task individual
 void requester::update_tasks()

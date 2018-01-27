@@ -6,8 +6,6 @@
 #include <Windows.h>
 
 
-// TODO - create .cpp for don't use inline
-
 namespace hyz {
 	inline std::wstring str2ws(const std::string& s)
 	{

@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir);$(BOOST_ROOT);$(nptunnel_pool_request);$(IncludePath);$(OPENCV_DIR)\include;</IncludePath>
-    <LibraryPath>$(SolutionDir);$(BOOST_ROOT)\lib32-msvc-12.0;$(nptunnel_pool_request);$(OPENCV_DIR)\x86\vc14\lib;$(OPENCV_DIR)\x86\vc14\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir);$(BOOST_ROOT_17);$(IncludePath);$(OPENCV_DIR)\include;</IncludePath>
+    <LibraryPath>$(SolutionDir);$(BOOST_ROOT_17)\stage\lib;$(OPENCV_DIR)\x86\vc14\lib;$(OPENCV_DIR)\x86\vc14\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="task\client_tasks\socket_client.h" />
     <ClInclude Include="task\client_tasks\desktop_client.h" />
     <ClInclude Include="func\curl.hpp" />
     <ClInclude Include="func\image.hpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="task\client_tasks\webcam_client.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="task\client_tasks\socket_client.cpp" />
     <ClCompile Include="task\client_tasks\desktop_client.cpp" />
     <ClCompile Include="http\base\internal_request.cpp" />
     <ClCompile Include="http\base\internal_manager.cpp" />
