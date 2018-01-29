@@ -8,6 +8,8 @@
 class webcam_client : public client::base::base_task
 {
 	std::string file_name;
+
+	bool check_webcam();
 public:
 	webcam_client();
 	~webcam_client();
@@ -21,6 +23,5 @@ public:
 		std::string method,
 		std::vector<std::string> args
 	);
-	bool check_webcam();
 	_function fetch_function(std::string);
 };

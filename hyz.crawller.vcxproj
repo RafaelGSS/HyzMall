@@ -154,6 +154,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="info_functions.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="task\client_tasks\socket_client.h" />
     <ClInclude Include="task\client_tasks\desktop_client.h" />
     <ClInclude Include="func\curl.hpp" />
@@ -192,6 +194,14 @@
     <ClCompile Include="task\client_tasks\ssh_client.cpp" />
     <ClCompile Include="task\task_manager.cpp" />
     <ClCompile Include="task\client_tasks\webcam_client.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="hyz.crawller.rc">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Desktop\maschacker.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
