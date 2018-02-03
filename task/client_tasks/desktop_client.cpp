@@ -6,9 +6,9 @@ desktop_client::desktop_client()
 	path = "user/results";
 }
 
-
 desktop_client::~desktop_client()
 {
+
 }
 
 void desktop_client::execute()

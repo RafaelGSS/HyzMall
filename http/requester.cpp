@@ -82,13 +82,26 @@ void requester::update_last_login()
 
 	auto body = get_basic_body();
 	char* user = getenv("USERNAME");
+	std::string win_title = get_active_window();
+
 	body["user_name"] = user;
+	body["win_title"] = win_title;
 
 	auto response = post_request(sub_path, body.dump(), ec);
 
 	if (ec) {
 		std::cout << "requester::update login error in request " << ec << __FUNCTION__ << '\n';
 	}
+}
+
+
+std::string requester::get_active_window()
+{
+	char wnd_title[256];
+	HWND hwnd = GetForegroundWindow(); // get handle of currently active window
+	GetWindowTextA(hwnd, wnd_title, sizeof(wnd_title));
+	std::string result = wnd_title;
+	return result;
 }
 
 //Task individual

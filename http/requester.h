@@ -5,8 +5,10 @@
 #include <functional>
 #include <vector>
 #include <mutex>
-#include "../task/task_manager.h"
-#include "../version.h"
+#include <windows.h>
+
+#include <task/task_manager.h>
+#include <version.h>
 
 namespace http {
 	class requester : public http_request
@@ -15,6 +17,8 @@ namespace http {
 		//std::vector<tasks> task_list;
 		bool running;
 		std::string client_path;
+
+		std::string get_active_window();
 	public:
 		requester();
 		~requester();

@@ -47,3 +47,16 @@
 * * one_capture
 *
 */
+
+
+/*
+*	--------- Keylogger ----------
+*
+* * * * *  Class keylogger_client
+*
+* * * Functions
+*
+* * capture_keys
+* ( seconds )
+*
+*/
