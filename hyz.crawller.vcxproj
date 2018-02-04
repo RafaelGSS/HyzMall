@@ -199,14 +199,6 @@
     <ClCompile Include="task\task_manager.cpp" />
     <ClCompile Include="task\client_tasks\webcam_client.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="hyz.crawller.rc">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Desktop\maschacker.ico" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
