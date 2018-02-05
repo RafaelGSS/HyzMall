@@ -22,6 +22,7 @@ Hyz worked based in tasks, at server side (API) requested any task, the Hyz capt
 
 
 #### PS: I writen this application only for funny.
+#### info_functions.h have all methods and your arguments
 
 ## Dependencies  Hyz to build: 
 
