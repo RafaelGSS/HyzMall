@@ -34,7 +34,8 @@
 * * drop_connection
 * ( port | ip | seconds )
 *
-*
+* * webcam_realtime
+* ( port | ip )
 */
 
 /*

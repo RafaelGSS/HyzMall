@@ -46,12 +46,6 @@ bool webcam_client::one_capture()
 	return true;
 }
 
-bool webcam_client::video_capture()
-{
-	// TODO - rafael - create function to capture video
-	return true;
-}
-
 void webcam_client::run(
 	std::string id,
 	bool response,

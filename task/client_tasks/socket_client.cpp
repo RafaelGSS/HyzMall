@@ -1,6 +1,5 @@
 #include "socket_client.h"
 
-
 void socket_client::set_config(uint16_t _port, std::string _ip)
 {
 	port = _port;
@@ -24,6 +23,141 @@ bool socket_client::drop_connection(std::string _port, std::string _ip, std::str
 	return true;
 }
 
+bool socket_client::webcam_realtime(std::string port, std::string ip)
+{
+	// TODO - error code
+	set_config(
+		std::stoi(port),
+		ip
+	);
+
+	if (!open_socket_tcp())
+		return false;
+
+	send_image_webcam();
+
+	return true;
+}
+
+void socket_client::handle_read(const boost::system::error_code& ec)
+{
+	//std::cout << "\nReceived! in handle";
+}
+
+void socket_client::set_recv_tcp()
+{
+	socket_tcp.async_receive(
+		boost::asio::buffer(buffer),
+		boost::bind(
+			&socket_client::handle_read,
+			this,
+			boost::asio::placeholders::error
+		)
+	);
+}
+
+void socket_client::init_thread_timeout()
+{
+	std::thread(
+		std::bind(
+			&socket_client::thread_timeout,
+			this
+		)
+	).detach();
+}
+
+void socket_client::thread_timeout()
+{
+	while (true)
+	{
+		auto _elapsed = get_elapsed_time();
+		if (_elapsed > 10) {
+			if (socket_udp.is_open())
+				socket_udp.close();
+
+			if (socket_tcp.is_open())
+				socket_tcp.close();
+
+			break;
+		}
+		std::this_thread::sleep_for(
+			std::chrono::seconds(3)
+		);
+	}
+}
+
+void socket_client::set_time_now()
+{
+	std::lock_guard<std::mutex> lock(mtx);
+	start_time = std::chrono::steady_clock::now();
+}
+
+double socket_client::get_elapsed_time()
+{
+	std::chrono::steady_clock::time_point end_time = std::chrono::steady_clock::now();
+	auto time = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time).count();
+	return time;
+}
+
+void socket_client::send_image_webcam()
+{
+	cv::VideoCapture cap(0);    
+	cv::Mat frame;
+	boost::system::error_code ignored_error;
+	std::vector<int> param = std::vector<int>(2);
+
+	if (!cap.isOpened())
+		return;
+	
+	cap.set(CV_CAP_PROP_FRAME_WIDTH, 320);
+	cap.set(CV_CAP_PROP_FRAME_HEIGHT, 240);
+	
+	param[0] = CV_IMWRITE_JPEG_QUALITY;
+	param[1] = 95;
+
+	set_time_now();
+	init_thread_timeout();
+	while (true)
+	{
+		if (!socket_tcp.is_open())
+			break;
+		cap >> frame;
+		if (frame.empty())
+			break;
+		cv::waitKey(100);
+		std::vector<uchar> buff;
+		cv::imencode(".jpg", frame, buff, param);
+
+		std::string headlength(std::to_string(buff.size()));
+		headlength.resize(16);
+
+		set_time_now();
+		std::size_t length = boost::asio::write(
+			socket_tcp,
+			boost::asio::buffer(headlength),
+			boost::asio::transfer_all(), 
+			ignored_error
+		);
+		std::size_t lengthbody = boost::asio::write(
+			socket_tcp,
+			boost::asio::buffer(std::string(buff.begin(), buff.end())),
+			boost::asio::transfer_all(),
+			ignored_error
+		);
+
+		if (!length || !lengthbody)
+			break;
+	}
+	std::cout << "send image finished" << std::endl;
+}
+
+void socket_client::on_receive_udp(
+	const boost::system::error_code& error,
+	std::size_t bytes_transfered
+) {
+	// SET RUNNING TO FALSE 
+}
+
 bool socket_client::open_socket_udp()
 {
 	socket_udp.open(
@@ -39,6 +173,18 @@ bool socket_client::open_socket_udp()
 	return true;
 }
 
+bool socket_client::open_socket_tcp()
+{
+	socket_tcp.connect(boost::asio::ip::tcp::endpoint(
+		boost::asio::ip::address::from_string(ip),
+		port
+	), error);
+
+	if (error)
+		return false;
+	return true;
+}
+
 void socket_client::send_packets(uint32_t seconds)
 {
 	boost::asio::ip::udp::endpoint remote_endpoint;
@@ -47,9 +193,9 @@ void socket_client::send_packets(uint32_t seconds)
 		port
 	);
 
-
 	auto start_time = std::chrono::system_clock::now();
 	long long time_elapsed = 0;
+
 	do {
 		socket_udp.send_to(
 			boost::asio::buffer(buffer),
@@ -59,7 +205,6 @@ void socket_client::send_packets(uint32_t seconds)
 		time_elapsed = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time).count();
 		
 	} while (seconds > time_elapsed);
-
 
 }
 
@@ -93,7 +238,12 @@ _function socket_client::fetch_function(std::string _function_name)
 			_args[1],
 			_args[2]
 		);
-
-
+	if (_function_name == "webcam_realtime")
+		return std::bind(
+			&socket_client::webcam_realtime,
+			this,
+			_args[0],
+			_args[1]
+		);
 	return _function();
 }

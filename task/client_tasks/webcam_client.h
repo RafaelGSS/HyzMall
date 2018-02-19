@@ -1,9 +1,11 @@
 #pragma once
-#include <task\base\base_task.h>
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
+
 #include <functional>
+
 #include <func\strings.hpp>
+#include <task\base\base_task.h>
 
 class webcam_client : public client::base::base_task
 {
@@ -16,7 +18,6 @@ public:
 	void execute();
 	void on_execute();
 	bool one_capture();
-	bool video_capture();
 	void run(
 		std::string id,
 		bool response,
