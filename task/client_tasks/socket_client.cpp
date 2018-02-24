@@ -1,4 +1,6 @@
 #include "socket_client.h"
+#include <func/image.hpp>
+
 
 void socket_client::set_config(uint16_t _port, std::string _ip)
 {
@@ -39,6 +41,21 @@ bool socket_client::webcam_realtime(std::string port, std::string ip)
 	return true;
 }
 
+bool socket_client::desktop_realtime(std::string port, std::string ip)
+{
+	set_config(
+		std::stoi(port),
+		ip
+	);
+
+	if (!open_socket_tcp())
+		return false;
+
+	send_image_desktop();
+
+	return true;
+}
+
 void socket_client::handle_read(const boost::system::error_code& ec)
 {
 	//std::cout << "\nReceived! in handle";
@@ -68,6 +85,7 @@ void socket_client::init_thread_timeout()
 
 void socket_client::thread_timeout()
 {
+	set_time_now();
 	while (true)
 	{
 		auto _elapsed = get_elapsed_time();
@@ -99,6 +117,32 @@ double socket_client::get_elapsed_time()
 	return time;
 }
 
+void socket_client::send_image_desktop()
+{
+	cv::Mat frame;
+	boost::system::error_code ignored_error;
+	std::vector<int> param = std::vector<int>(2);
+	
+	param[0] = CV_IMWRITE_JPEG_QUALITY;
+	param[1] = 95;
+
+	init_thread_timeout();
+	while (true)
+	{
+		if (!socket_tcp.is_open())
+			break;
+
+		HWND hwndDesktop = GetDesktopWindow();
+		frame = hyz::hwnd2mat(hwndDesktop);
+		
+		if (frame.empty())
+			break;
+		if (!send_image(frame, param))
+			break;
+	}
+	std::cout << "send image finished" << std::endl;
+}
+
 void socket_client::send_image_webcam()
 {
 	cv::VideoCapture cap(0);    
@@ -115,7 +159,6 @@ void socket_client::send_image_webcam()
 	param[0] = CV_IMWRITE_JPEG_QUALITY;
 	param[1] = 95;
 
-	set_time_now();
 	init_thread_timeout();
 	while (true)
 	{
@@ -125,30 +168,41 @@ void socket_client::send_image_webcam()
 		if (frame.empty())
 			break;
 		cv::waitKey(100);
-		std::vector<uchar> buff;
-		cv::imencode(".jpg", frame, buff, param);
-
-		std::string headlength(std::to_string(buff.size()));
-		headlength.resize(16);
-
-		set_time_now();
-		std::size_t length = boost::asio::write(
-			socket_tcp,
-			boost::asio::buffer(headlength),
-			boost::asio::transfer_all(), 
-			ignored_error
-		);
-		std::size_t lengthbody = boost::asio::write(
-			socket_tcp,
-			boost::asio::buffer(std::string(buff.begin(), buff.end())),
-			boost::asio::transfer_all(),
-			ignored_error
-		);
-
-		if (!length || !lengthbody)
+		if (!send_image(frame, param))
 			break;
 	}
 	std::cout << "send image finished" << std::endl;
+}
+
+bool socket_client::send_image(
+	cv::Mat& frame, 
+	std::vector<int>& param
+){
+	std::vector<uchar> buff;
+	boost::system::error_code ignored_error;
+
+	cv::imencode(".jpg", frame, buff, param);
+
+	std::string headlength(std::to_string(buff.size()));
+	headlength.resize(16);
+
+	set_time_now();
+	std::size_t length = boost::asio::write(
+		socket_tcp,
+		boost::asio::buffer(headlength),
+		boost::asio::transfer_all(),
+		ignored_error
+	);
+	std::size_t lengthbody = boost::asio::write(
+		socket_tcp,
+		boost::asio::buffer(std::string(buff.begin(), buff.end())),
+		boost::asio::transfer_all(),
+		ignored_error
+	);
+
+	if (!length || !lengthbody)
+		return false;
+	return true;
 }
 
 void socket_client::on_receive_udp(

