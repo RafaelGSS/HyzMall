@@ -49,14 +49,6 @@ class socket_client : public client::base::base_task
 	void send_image_desktop();
 	bool send_image(cv::Mat& frame, std::vector<int>& param);
 
-	void on_receive_udp(
-		const boost::system::error_code& error,
-		std::size_t bytes_transfered
-	);
-
-	void set_recv_tcp();
-
-	void handle_read(const boost::system::error_code& ec);
 
 	double get_elapsed_time();
 	void set_time_now();

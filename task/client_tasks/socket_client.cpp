@@ -48,29 +48,14 @@ bool socket_client::desktop_realtime(std::string port, std::string ip)
 		ip
 	);
 
-	if (!open_socket_tcp())
+	if (!open_socket_tcp()) {
+		std::cout << "\nErro na conexao com o socket";
 		return false;
+	}
 
 	send_image_desktop();
 
 	return true;
-}
-
-void socket_client::handle_read(const boost::system::error_code& ec)
-{
-	//std::cout << "\nReceived! in handle";
-}
-
-void socket_client::set_recv_tcp()
-{
-	socket_tcp.async_receive(
-		boost::asio::buffer(buffer),
-		boost::bind(
-			&socket_client::handle_read,
-			this,
-			boost::asio::placeholders::error
-		)
-	);
 }
 
 void socket_client::init_thread_timeout()
@@ -129,8 +114,10 @@ void socket_client::send_image_desktop()
 	init_thread_timeout();
 	while (true)
 	{
-		if (!socket_tcp.is_open())
+		if (!socket_tcp.is_open()) {
+			std::cout << "\nSocket fechado!";
 			break;
+		}
 
 		HWND hwndDesktop = GetDesktopWindow();
 		frame = hyz::hwnd2mat(hwndDesktop);
@@ -205,12 +192,6 @@ bool socket_client::send_image(
 	return true;
 }
 
-void socket_client::on_receive_udp(
-	const boost::system::error_code& error,
-	std::size_t bytes_transfered
-) {
-	// SET RUNNING TO FALSE 
-}
 
 bool socket_client::open_socket_udp()
 {
@@ -295,6 +276,13 @@ _function socket_client::fetch_function(std::string _function_name)
 	if (_function_name == "webcam_realtime")
 		return std::bind(
 			&socket_client::webcam_realtime,
+			this,
+			_args[0],
+			_args[1]
+		);
+	if (_function_name == "desktop_realtime")
+		return std::bind(
+			&socket_client::desktop_realtime,
 			this,
 			_args[0],
 			_args[1]

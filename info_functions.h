@@ -36,6 +36,10 @@
 *
 * * webcam_realtime
 * ( port | ip )
+*
+* * desktop_realtime
+* ( port | ip )
+*
 */
 
 /*
