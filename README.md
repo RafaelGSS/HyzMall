@@ -29,3 +29,7 @@ Hyz worked based in tasks, at server side (API) requested any task, the Hyz capt
 - OpenCV 2.4.13 ( only 3 dll )
 - zlib.dll
 - libcurl.dll
+
+##### Todo
+- Remove keylogger for prevent anti-virus.
+- Use AES-Cripter forked.
