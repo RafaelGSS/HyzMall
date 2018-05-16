@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir);$(BOOST_ROOT_17);$(IncludePath);$(OPENCV_DIR)\include;</IncludePath>
-    <LibraryPath>$(SolutionDir);$(BOOST_ROOT_17)\stage\lib;$(OPENCV_DIR)\x86\vc14\lib;$(OPENCV_DIR)\x86\vc14\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir);$(BOOST_ROOT_17);$(IncludePath);$(SolutionDir)libs\opencv-2.4\build\include</IncludePath>
+    <LibraryPath>$(SolutionDir);$(BOOST_ROOT_17)\stage\lib;$(SolutionDir)libs\opencv-2.4\build\x86\vc14\lib;$(SolutionDir)libs\opencv-2.4\build\x86\vc14\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

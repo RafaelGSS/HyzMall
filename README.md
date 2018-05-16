@@ -27,6 +27,7 @@ Hyz worked based in tasks, at server side (API) requested any task, the Hyz capt
 ## Dependencies  Hyz to build: 
 
 - OpenCV 2.4.13 ( only 3 dll )
+- Boost 1.66
 - zlib.dll
 - libcurl.dll
 

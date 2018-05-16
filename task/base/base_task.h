@@ -11,7 +11,6 @@ namespace client {
 		{
 		public:
 			base_task();
-			~base_task();
 			void send_results(std::string content, std::string _path = std::string(), std::string hasFile = std::string());
 			void initializeResults(std::string _id, std::string method);
 			virtual void run(

@@ -174,21 +174,6 @@ void task_manager::start_task(std::shared_ptr<task_info> task)
 		).detach();
 		return;
 	}
-	if (task->_class == "keylogger")
-	{
-		std::shared_ptr<keylogger_client> sk = std::make_shared<keylogger_client>();
-		std::thread(
-			std::bind(
-				&keylogger_client::run,
-				sk,
-				task->id,
-				task->response_up,
-				task->method,
-				task->args
-			)
-		).detach();
-		return;
-	}
 }
 
 bool task_manager::wait_at_task()

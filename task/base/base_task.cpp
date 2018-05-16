@@ -7,11 +7,6 @@ base_task::base_task()
 {
 }
 
-
-base_task::~base_task()
-{
-}
-
 void base_task::run(
 	std::string id,
 	bool response,
