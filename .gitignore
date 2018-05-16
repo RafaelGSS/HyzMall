@@ -5,7 +5,7 @@
 
 #
 *.bsc
-*.dll
+#*.dll
 *.lib
 *.exp
 *.map
@@ -21,7 +21,6 @@
 [Dd]ebug/
 [Rr]elease/
 x64/
-build/
 #[Bb]in/
 [B]in/
 [Oo]bj/
