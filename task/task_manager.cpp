@@ -98,22 +98,6 @@ void task_manager::runner_thread()
 void task_manager::start_task(std::shared_ptr<task_info> task)
 {
 	std::cout << "task_manager::starting task " << task->method << "\n";
-	if(task->_class == "ssh")
-	{
-		std::shared_ptr<ssh_client> ssh = std::make_shared<ssh_client>();
-		std::thread(
-			std::bind(
-				&ssh_client::run,
-				ssh,
-				task->id,
-				task->response_up,
-				task->method,
-				task->args
-				)
-		).detach();
-		return;
-	}
-
 	if (task->_class == "webcam")
 	{
 		std::shared_ptr<webcam_client> cam = std::make_shared<webcam_client>();

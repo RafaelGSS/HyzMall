@@ -8,11 +8,6 @@ requester::requester()
 	running = false;
 }
 
-
-requester::~requester()
-{
-}
-
 void requester::run_thread(){
 	if (running)
 		return;
@@ -27,6 +22,10 @@ void requester::run_thread(){
 	).detach();
 }
 
+/*
+* REQUEST ON SERVER_HOST/API_SUB_PATH/VERSION 
+* THEN RESPONSE NEED HAS "VERSION" PARAMETER
+*/
 void requester::check_version()
 {
 	uint32_t ec = 0;
@@ -40,7 +39,8 @@ void requester::check_version()
 			return;
 	}
 
-	std::cout << "Versão inválida. Executar auto update.\n";
+	// TODO - Exec update on version. (Request to server update)
+	std::cout << "Invalid version. Run AutoUpdater.\n";
 		
 
 }

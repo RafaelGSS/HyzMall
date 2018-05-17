@@ -6,14 +6,8 @@ client_initializer::client_initializer()
 {
 }
 
-
-client_initializer::~client_initializer()
-{
-}
-
 void client_initializer::run()
 {
-	std::cout << "client::initializer::check instance client\n";
 	if (!check_one_instance())
 		exit(0);
 }
@@ -33,12 +27,9 @@ bool client_initializer::check_one_instance()
 
         CloseHandle( m_hStartEvent ); 
         m_hStartEvent = NULL;
-        // already exist
-        // send message from here to existing copy of the application
 		std::cout << "Application already initialized!\n";
 		return false;
     }
-    // the only instance, start in a usual way
 	std::cout << "Application not initialized!\n";
     return true;
 }

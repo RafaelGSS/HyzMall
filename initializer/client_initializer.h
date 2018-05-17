@@ -10,7 +10,6 @@ namespace initializer {
 	public:
 		void run();
 		client_initializer();
-		~client_initializer();
 		static client_initializer* get();
 	};
 }

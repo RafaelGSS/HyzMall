@@ -1,12 +1,14 @@
 #pragma once
 #include "http_request.h"
+#include <env.h>
+
 using namespace http;
 
 internal_ptr http_request::create_request(std::string sub_path)
 {
 	auto r = base::create_request();
 	r->set_server_name("hyz");
-	r->set_sub_path("/api/" + sub_path);
+	r->set_sub_path(API_SUB_PATH + sub_path);
 	r->add_arg("headers", "Content-Type", "application/json");
 
 	return r;
@@ -17,7 +19,7 @@ internal_ptr http_request::create_request_file(std::string sub_path)
 {
 	auto r = base::create_request();
 	r->set_server_name("hyz");
-	r->set_sub_path("/api/" + sub_path);
+	r->set_sub_path(API_SUB_PATH + sub_path);
 	r->add_arg("headers", "Content-Type", "multipart/form-data");
 
 	return r;
@@ -55,8 +57,8 @@ http_request::http_request() {
 		im = base::internal_manager::get();
 		std::string pool_name = "hyz";
 
-		std::string pool_path = "/api/";
-		std::string hostName = "http://morning-wildwood-39166.herokuapp.com";
+		std::string pool_path = API_SUB_PATH;
+		std::string hostName = SERVER_HOST;
 		im->add_server_to_pool(pool_name, hostName, pool_path);
 
 	}
