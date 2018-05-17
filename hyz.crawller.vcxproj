@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir);$(BOOST_ROOT_17);$(IncludePath);$(SolutionDir)libs\opencv-2.4\build\include</IncludePath>
-    <LibraryPath>$(SolutionDir);$(BOOST_ROOT_17)\stage\lib;$(SolutionDir)libs\opencv-2.4\build\x86\vc14\lib;$(SolutionDir)libs\opencv-2.4\build\x86\vc14\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir);$(BOOST_ROOT);$(IncludePath);$(SolutionDir)libs\opencv-2.4\opencv\build\include</IncludePath>
+    <LibraryPath>$(SolutionDir);$(BOOST_ROOT)\stage\lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,7 +120,7 @@
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(OPENCV_DIR)\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libs\opencv-2.4\opencv\build\include</AdditionalIncludeDirectories>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
@@ -129,8 +129,8 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
-      <AdditionalLibraryDirectories>$(OPENCV_DIR)\x86\vc14\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(OPENCV_DIR)\x86\vc14\lib\opencv_calib3d2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_contrib2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_core2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_features2d2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_flann2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_gpu2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_highgui2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_imgproc2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_legacy2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ml2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_nonfree2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_objdetect2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ocl2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_photo2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_stitching2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_superres2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_ts2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_video2413.lib;$(OPENCV_DIR)\x86\vc14\lib\opencv_videostab2413.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_calib3d2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_contrib2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_core2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_features2d2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_flann2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_gpu2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_highgui2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_imgproc2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_legacy2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_ml2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_nonfree2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_objdetect2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_ocl2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_photo2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_stitching2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_superres2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_ts2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_video2413.lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib\opencv_videostab2413.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateMapFile>true</GenerateMapFile>
       <MapExports>true</MapExports>
       <AssemblyDebug>true</AssemblyDebug>
@@ -155,10 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="info_functions.h" />
-    <ClInclude Include="task\client_tasks\keylogger\keyhook.h" />
-    <ClInclude Include="task\client_tasks\keylogger\keylogger_client.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="task\client_tasks\keylogger\key_constrants.h" />
     <ClInclude Include="task\client_tasks\socket_client.h" />
     <ClInclude Include="task\client_tasks\desktop_client.h" />
     <ClInclude Include="func\curl.hpp" />
@@ -183,7 +180,6 @@
     <ClInclude Include="task\client_tasks\webcam_client.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="task\client_tasks\keylogger\keylogger_client.cpp" />
     <ClCompile Include="task\client_tasks\socket_client.cpp" />
     <ClCompile Include="task\client_tasks\desktop_client.cpp" />
     <ClCompile Include="http\base\internal_request.cpp" />
@@ -198,6 +194,9 @@
     <ClCompile Include="task\client_tasks\ssh_client.cpp" />
     <ClCompile Include="task\task_manager.cpp" />
     <ClCompile Include="task\client_tasks\webcam_client.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libs\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

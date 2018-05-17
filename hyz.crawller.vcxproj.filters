@@ -87,15 +87,6 @@
     <ClInclude Include="resource.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="task\client_tasks\keylogger\keylogger_client.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="task\client_tasks\keylogger\keyhook.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
-    <ClInclude Include="task\client_tasks\keylogger\key_constrants.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="http\http_request.cpp">
@@ -140,8 +131,8 @@
     <ClCompile Include="task\client_tasks\socket_client.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="task\client_tasks\keylogger\keylogger_client.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libs\README.md" />
   </ItemGroup>
 </Project>

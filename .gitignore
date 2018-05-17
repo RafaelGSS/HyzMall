@@ -2,7 +2,7 @@
 # Invoke-WebRequest https://gist.githubusercontent.com/kmorcinek/2710267/raw/ -OutFile .gitignore
 # or wget:
 # wget --no-check-certificate http://gist.githubusercontent.com/kmorcinek/2710267/raw/.gitignore
-
+libs/opencv2.4/*
 #
 *.bsc
 #*.dll
