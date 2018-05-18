@@ -36,9 +36,6 @@
     <ClInclude Include="version.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="task\client_tasks\ssh_client.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
-    </ClInclude>
     <ClInclude Include="task\base\base_task.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
@@ -87,6 +84,9 @@
     <ClInclude Include="resource.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="env.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="http\http_request.cpp">
@@ -105,9 +105,6 @@
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="http\requester.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
-    <ClCompile Include="task\client_tasks\ssh_client.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
     <ClCompile Include="task\base\base_task.cpp">
@@ -134,5 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\README.md" />
+    <None Include="task\client_tasks\README.md" />
   </ItemGroup>
 </Project>

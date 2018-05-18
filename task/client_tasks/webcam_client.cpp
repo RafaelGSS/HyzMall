@@ -14,7 +14,6 @@ webcam_client::~webcam_client()
 
 void webcam_client::execute()
 {
-	
 	auto funct = fetch_function(results["method"]);
 	results["completed"] = funct();
 }

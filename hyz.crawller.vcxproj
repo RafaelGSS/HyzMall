@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir);$(BOOST_ROOT);$(IncludePath);$(SolutionDir)libs\opencv-2.4\opencv\build\include</IncludePath>
-    <LibraryPath>$(SolutionDir);$(BOOST_ROOT)\stage\lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir);$(BOOST_ROOT_17);$(IncludePath);$(SolutionDir)libs\opencv-2.4\opencv\build\include</IncludePath>
+    <LibraryPath>$(SolutionDir);$(BOOST_ROOT_17)\stage\lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\lib;$(SolutionDir)libs\opencv-2.4\opencv\build\x86\vc14\bin;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -119,7 +119,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>false</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;BOOST_CONFIG_SUPPRESS_OUTDATED_MESSAGE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)libs\opencv-2.4\opencv\build\include</AdditionalIncludeDirectories>
       <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
@@ -154,6 +154,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="env.h" />
     <ClInclude Include="info_functions.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="task\client_tasks\socket_client.h" />
@@ -172,7 +173,6 @@
     <ClInclude Include="initializer\client_initializer.h" />
     <ClInclude Include="notifier\notification.h" />
     <ClInclude Include="http\requester.h" />
-    <ClInclude Include="task\client_tasks\ssh_client.h" />
     <ClInclude Include="task\base\tasker.h" />
     <ClInclude Include="task\task_manager.h" />
     <ClInclude Include="teste\http_request.h" />
@@ -191,12 +191,12 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="notifier\notification.cpp" />
     <ClCompile Include="http\requester.cpp" />
-    <ClCompile Include="task\client_tasks\ssh_client.cpp" />
     <ClCompile Include="task\task_manager.cpp" />
     <ClCompile Include="task\client_tasks\webcam_client.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="libs\README.md" />
+    <None Include="task\client_tasks\README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

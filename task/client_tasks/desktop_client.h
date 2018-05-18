@@ -1,7 +1,8 @@
 #pragma once
 #include <task\base\base_task.h>
+
 #include <cstdio>
-#include <Windows.h>
+
 #include <func\strings.hpp>
 #include <func\image.hpp>
 
@@ -10,7 +11,6 @@ class desktop_client : public client::base::base_task
 	std::string file_name;
 public:
 	desktop_client();
-	~desktop_client();
 	void execute();
 	void on_execute();
 	void run(

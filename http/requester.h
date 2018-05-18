@@ -1,4 +1,7 @@
 #pragma once
+#include <task/task_manager.h>
+#include <version.h>
+
 #include "http_request.h"
 #include <thread>
 #include <chrono>
@@ -6,9 +9,6 @@
 #include <vector>
 #include <mutex>
 #include <windows.h>
-
-#include <task/task_manager.h>
-#include <version.h>
 
 namespace http {
 	class requester : public http_request

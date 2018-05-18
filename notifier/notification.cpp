@@ -16,10 +16,6 @@ notification::notification()
 }
 
 
-notification::~notification()
-{
-}
-
 void notification::add_notification(std::string path, std::string content, std::string _hasFile)
 {
 	std::unique_lock<std::mutex> lock(mtx);

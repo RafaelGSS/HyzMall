@@ -25,7 +25,6 @@ class notification
 	std::condition_variable cv;
 public:
 	notification();
-	~notification();
 	void add_notification(std::string path, std::string content, std::string _hasFile = std::string());
 	void runner_thread();
 	bool check_notifications();

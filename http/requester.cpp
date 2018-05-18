@@ -1,5 +1,7 @@
 #include "requester.h"
 #include <iostream>
+#include <env.h>
+#include <task/task_manager.h>
 
 using namespace http;
 
@@ -29,7 +31,7 @@ void requester::run_thread(){
 void requester::check_version()
 {
 	uint32_t ec = 0;
-	auto response = post_request("version", get_basic_body().dump(), ec);
+	auto response = post_request(VERSION_ROUTE, get_basic_body().dump(), ec);
 	if (ec)
 		return;
 
@@ -78,7 +80,7 @@ void requester::run(){
 void requester::update_last_login()
 {
 	uint32_t ec = 0;
-	std::string sub_path = "user/register";
+	std::string sub_path = USER_REGISTER_ROUTE;
 
 	auto body = get_basic_body();
 	char* user = getenv("USERNAME");
@@ -107,7 +109,7 @@ std::string requester::get_active_window()
 //Task individual
 void requester::update_tasks()
 {
-	std::string sub_path = "user/tasks";
+	std::string sub_path = USER_TASK_ROUTE;
 	uint32_t ec = 0;
 
 	auto response = post_request(sub_path, get_basic_body().dump(), ec);
@@ -129,7 +131,7 @@ void requester::update_tasks()
 // Tasks to all
 void requester::update_tasks_all()
 {
-	std::string sub_path = "tasks";
+	std::string sub_path = ALL_TASK_ROUTE;
 	uint32_t ec = 0;
 
 	auto response = post_request(sub_path, get_basic_body().dump(), ec);
