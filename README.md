@@ -1,19 +1,19 @@
 #  HyzMall
 
 
-## What's Hyz ?
+## What is Hyz?
 
-Hyz it's only an mallware that run in background mode executing tasks requested by server administrator.
-This requests is based in an API hosted in Heroku. (Because protocol HTTP and port 80 it's very sample!)
+Hyz is malware that runs in the background, executing tasks requested by a server administrator.
+These requests are based on an API hosted by Heroku. (Because the protocol is HTTP and the port is 80, it's very simple!)
 
-## How Hyz working ?
+## How does Hyz work?
 
-Hyz worked based in tasks, at server side (API) requested any task, the Hyz capture this request and execute task.
+Hyz is based on tasks. The server (API) request any task. The Hyz client captures this request and executes a task.
 
-## What does Hyz do ?
+## What does Hyz do?
 
-### Hyz have the features:
-- Desktop Capture ( Capture an ScreenShot )
+### Hyz has the following features:
+- Desktop Capture ( Capture a ScreenShot )
 - Webcam Capture
 - Drop connection by X seconds (X is param)
 - Show any image hosted in internet
@@ -21,10 +21,10 @@ Hyz worked based in tasks, at server side (API) requested any task, the Hyz capt
 - Keylogger ( capture keys in X seconds )
 
 
-#### PS: I writen this application only for funny.
+#### PS: I wrote this application only for fun.
 #### info_functions.h have all methods and your arguments
 
-## Dependencies  Hyz to build: 
+## Dependencies needed to build Hyz:
 
 - OpenCV 2.4.13 ( only 3 dll )
 - Boost 1.66
@@ -33,7 +33,7 @@ Hyz worked based in tasks, at server side (API) requested any task, the Hyz capt
 
 ## Important!
 
-**HyzMall have another repositories, but these repositories are private. If you want see these repositories, send me a email**
+**HyzMall has other repositories, but these repositories are private. If you want see these repositories, send me a email**
 
 Have:
 - HyzMallAdmin ( View for administrator, capture the data from HyzMallApi and create tasks )
